@@ -1,5 +1,5 @@
 ﻿using Avalonia.Controls;
-using MeihuaWintryDesktop.Tools.ViewLocating;
+using MeihuaWintryDesktop.Views.ViewLocating;
 using System;
 
 namespace MeihuaWintryDesktop.Views;

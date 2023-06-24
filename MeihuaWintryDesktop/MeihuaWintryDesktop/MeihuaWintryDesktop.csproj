@@ -15,11 +15,12 @@
 		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.0-rc1.1" />
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-rc1.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+		<PackageReference Include="LiteDB" Version="5.0.16" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\TestView.axaml.cs">
-	    <DependentUpon>TestView.axaml</DependentUpon>
+	  <Compile Update="Views\WelcomePageView.axaml.cs">
+	    <DependentUpon>WelcomePageView.axaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 </Project>

@@ -1,8 +1,11 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using MeihuaWintryDesktop.ViewModels;
 using MeihuaWintryDesktop.Views;
+using System;
 
 namespace MeihuaWintryDesktop;
 
@@ -25,17 +28,17 @@ public sealed partial class App : Application
     {
         if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow {
-                DataContext = new MainViewModel()
-            };
+            var window = new MainWindow();
+            window.DataContext = new MainViewModel(window.StorageProvider, desktop.Args);
+            desktop.MainWindow = window;
         }
         else if (this.ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView {
-                DataContext = new MainViewModel()
+            singleViewPlatform.MainView = new MainView() {
+                // TODO: add support for those platforms
+                DataContext = new MainViewModel(null)
             };
         }
-
         base.OnFrameworkInitializationCompleted();
     }
 }

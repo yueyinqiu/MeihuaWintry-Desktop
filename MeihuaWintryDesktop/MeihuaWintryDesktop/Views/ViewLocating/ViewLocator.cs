@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace MeihuaWintryDesktop.Tools.ViewLocating;
+namespace MeihuaWintryDesktop.Views.ViewLocating;
 public sealed class ViewLocator : IDataTemplate
 {
     private readonly Dictionary<Type, Type> dictionary;
 
     public ViewLocator()
     {
-        this.dictionary = new();
+        dictionary = new();
         var interfaceType = typeof(ILocatableView);
         foreach (var viewType in Assembly.GetExecutingAssembly().GetTypes())
         {
-            if(viewType.IsClass)
+            if (viewType.IsClass)
             {
                 var interfaceArray = viewType.GetInterfaces();
                 if (Array.IndexOf(interfaceArray, interfaceType) != -1)
