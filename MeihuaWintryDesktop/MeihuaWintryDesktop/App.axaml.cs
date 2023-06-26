@@ -1,24 +1,13 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Input;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using MeihuaWintryDesktop.ViewModels;
-using MeihuaWintryDesktop.Views;
-using System;
+using System.Diagnostics;
 
 namespace MeihuaWintryDesktop;
 
-public sealed partial class App : Application
+public partial class App : Application
 {
-    public static AppBuilder BuildNonPlatform()
-    {
-        var builder = AppBuilder.Configure<App>();
-        _ = builder.WithInterFont();
-        _ = builder.LogToTrace();
-        return builder;
-    }
-
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -26,19 +15,15 @@ public sealed partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            var window = new MainWindow();
-            window.DataContext = new MainViewModel(window.StorageProvider, desktop.Args);
-            desktop.MainWindow = window;
-        }
-        else if (this.ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
-            singleViewPlatform.MainView = new MainView() {
-                // TODO: add support for those platforms
-                DataContext = new MainViewModel(null)
-            };
-        }
+        // Line below is needed to remove Avalonia data validation.
+        // Without this line you will get duplicate validations from both Avalonia and CT
+        BindingPlugins.DataValidators.RemoveAt(0);
+
+        Debug.Assert(ApplicationLifetime is IClassicDesktopStyleApplicationLifetime);
+
+        var desktopLiftTime = (IClassicDesktopStyleApplicationLifetime)ApplicationLifetime;
+        desktopLiftTime.MainWindow = new MainWindow();
+
         base.OnFrameworkInitializationCompleted();
     }
 }

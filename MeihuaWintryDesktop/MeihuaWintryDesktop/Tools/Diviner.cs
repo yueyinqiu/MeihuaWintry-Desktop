@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeihuaWintryDesktop.ViewModels.Entities;
-public interface IPageViewModel : IDisposable
+namespace MeihuaWintryDesktop.Tools;
+public sealed class Diviner
 {
+    public Diviner()
+    {
+        
+    }
 }
