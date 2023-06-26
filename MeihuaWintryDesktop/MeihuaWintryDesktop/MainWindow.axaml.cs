@@ -2,6 +2,7 @@
 using Avalonia.Controls.Primitives;
 using Avalonia.Dialogs;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MeihuaWintryDesktop;
@@ -12,17 +13,21 @@ public partial class MainWindow : Window
     {
         this.InitializeComponent();
 
-        this.menuItemNewCase.Click += async (_, _) => await NewCase();
-        this.menuItemOpenCase.Click += async (_, _) => await OpenCase();
-        this.menuItemSaveCase.Click += (_, _) => SaveCase();
-        this.menuItemOpenCase.Click += (_, _) => SaveCaseAs();
+        this.menuItemNewCase.Click += async (_, _) => await this.NewCase();
+        this.menuItemOpenCase.Click += async (_, _) => await this.OpenCase();
+        this.menuItemSaveCase.Click += (_, _) => this.SaveCase();
+        this.menuItemOpenCase.Click += (_, _) => this.SaveCaseAs();
         this.menuItemExitProgram.Click += (_, _) => this.Close();
 
         this.Closing += async (_, e) => {
-            if (!await CheckSavedAndConfirmContinuing())
-                e.Cancel = true;
+            e.Cancel = true;
+            if (await this.CheckSavedAndConfirmContinuing())
+                e.Cancel = false;
         };
+        
     }
+
+    public required DirectoryInfo DataFolder { get; init; }
 
     private async Task<bool> CheckSavedAndConfirmContinuing()
     {
@@ -36,7 +41,7 @@ public partial class MainWindow : Window
     
     public async Task NewCase()
     {
-        if (!await CheckSavedAndConfirmContinuing())
+        if (!await this.CheckSavedAndConfirmContinuing())
             return;
 
         this.caseDisplayControl.SetCase(new($"{DateTime.Now}"), null);
@@ -44,7 +49,7 @@ public partial class MainWindow : Window
 
     public async Task OpenCase()
     {
-        if (!await CheckSavedAndConfirmContinuing())
+        if (!await this.CheckSavedAndConfirmContinuing())
             return;
 
     }

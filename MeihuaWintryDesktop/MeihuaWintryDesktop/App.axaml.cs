@@ -2,7 +2,11 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MeihuaWintryDesktop;
 
@@ -13,16 +17,31 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
+    private static DirectoryInfo GetDataDirectory()
+    {
+        var currentPath = Environment.CurrentDirectory;
+        var hashedCurrent = SHA256.HashData(Encoding.UTF8.GetBytes(currentPath));
+
+        var identifier = Convert.ToHexString(hashedCurrent)[..16];
+
+        var folderType = Environment.SpecialFolder.LocalApplicationData;
+        var resultPath = Environment.GetFolderPath(folderType);
+        resultPath = Path.GetFullPath("MeihuaWintryDesktop", resultPath);
+        resultPath = Path.GetFullPath(identifier, resultPath);
+
+        return new DirectoryInfo(resultPath);
+    }
+
     public override void OnFrameworkInitializationCompleted()
     {
-        // Line below is needed to remove Avalonia data validation.
-        // Without this line you will get duplicate validations from both Avalonia and CT
         BindingPlugins.DataValidators.RemoveAt(0);
-
-        Debug.Assert(ApplicationLifetime is IClassicDesktopStyleApplicationLifetime);
-
-        var desktopLiftTime = (IClassicDesktopStyleApplicationLifetime)ApplicationLifetime;
-        desktopLiftTime.MainWindow = new MainWindow();
+        
+        if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLiftTime)
+        {
+            desktopLiftTime.MainWindow = new MainWindow() { 
+                DataFolder = GetDataDirectory() 
+            };
+        }
 
         base.OnFrameworkInitializationCompleted();
     }
