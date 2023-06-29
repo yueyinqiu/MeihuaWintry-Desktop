@@ -4,12 +4,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:entities="using:MeihuaWintryDesktop.Entities"
 		xmlns:controls="using:MeihuaWintryDesktop.Controls"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d"
+		Width="400" Height="300"
         x:Class="MeihuaWintryDesktop.MessageWindow"
         Icon="/Assets/taiji.png">
-	<StackPanel>
-		<Label Name="label"></Label>
-		<Button Name="buttonYes"></Button>
-		<Button Name="buttonNo"></Button>
-	</StackPanel>
+	<Grid RowDefinitions="*, Auto" ColumnDefinitions="*, *" Margin="15">
+		<TextBox Name="textBoxMessage"
+				 Grid.ColumnSpan="2"
+				 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+				 IsReadOnly="True"
+				 AcceptsReturn="True" TextWrapping="WrapWithOverflow"/>
+		<Button Name="buttonYes"
+				Grid.Row="1"
+				VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+		<Button Name="buttonNo"
+				Grid.Row="1" Grid.Column="1"
+				VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+	</Grid>
 </Window>

@@ -17,7 +17,7 @@ public partial class MessageWindow : Window
         Window owner, string title, string message, string yesText)
     {
         this.Title = title;
-        this.label.Content = message;
+        this.textBoxMessage.Text = message;
         this.buttonYes.Content = yesText;
         this.buttonNo.IsVisible = false;
 
@@ -28,7 +28,7 @@ public partial class MessageWindow : Window
         Window owner, string title, string message, string yesText, string noText)
     {
         this.Title = title;
-        this.label.Content = message;
+        this.textBoxMessage.Text = message;
         this.buttonYes.Content = yesText;
         this.buttonNo.Content = noText;
         this.buttonNo.IsVisible = true;

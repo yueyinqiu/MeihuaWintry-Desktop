@@ -1,6 +1,4 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
-using Avalonia.Dialogs;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -9,6 +7,7 @@ namespace MeihuaWintryDesktop;
 
 public partial class MainWindow : Window
 {
+    bool isCloseRequired = false;
     public MainWindow()
     {
         this.InitializeComponent();
@@ -20,11 +19,14 @@ public partial class MainWindow : Window
         this.menuItemExitProgram.Click += (_, _) => this.Close();
 
         this.Closing += async (_, e) => {
-            e.Cancel = true;
+            if (!isCloseRequired)
+                e.Cancel = true;
             if (await this.CheckSavedAndConfirmContinuing())
-                e.Cancel = false;
+            {
+                isCloseRequired = true;
+                this.Close();
+            }
         };
-        
     }
 
     public required DirectoryInfo DataFolder { get; init; }
@@ -51,6 +53,7 @@ public partial class MainWindow : Window
     {
         if (!await this.CheckSavedAndConfirmContinuing())
             return;
+
 
     }
 
