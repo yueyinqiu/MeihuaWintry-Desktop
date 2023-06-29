@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using YiJingFramework.PrimitiveTypes.Serialization;
-using YiJingFramework.PrimitiveTypes
+using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Entities;
 [JsonSerializable(typeof(JsonConverterOfStringConvertibleForJson<ChineseLunarTime>))]

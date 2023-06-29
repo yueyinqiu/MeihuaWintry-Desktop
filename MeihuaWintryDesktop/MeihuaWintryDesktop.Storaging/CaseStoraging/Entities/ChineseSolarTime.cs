@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -19,4 +20,14 @@ public sealed class ChineseSolarTime : IStringConvertibleForJson<ChineseSolarTim
     public Dizhi DayZhi { get; }
     public Tiangan TimeGan { get; }
     public Dizhi TimeZhi { get; }
+
+    public static bool FromStringForJson(string s, [MaybeNullWhen(false)] out ChineseSolarTime result)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string ToStringForJson()
+    {
+        throw new NotImplementedException();
+    }
 }

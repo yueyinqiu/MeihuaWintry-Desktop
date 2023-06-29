@@ -15,4 +15,5 @@ public sealed class StoredCase
     public string Title { get; }
     public StoredWesternTime? WesternTime { get; }
     public ChineseLunarTime? LunarTime { get; }
+    public ChineseSolarTime? SolarTime { get; }
 }
