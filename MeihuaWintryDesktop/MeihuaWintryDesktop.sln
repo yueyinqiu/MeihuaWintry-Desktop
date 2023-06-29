@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeihuaWintryDesktop", "MeihuaWintryDesktop\MeihuaWintryDesktop.csproj", "{B54DA4AD-9BE1-4AFD-B022-6CA55DBDF6C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeihuaWintryDesktop.Storaging", "MeihuaWintryDesktop.Storaging\MeihuaWintryDesktop.Storaging.csproj", "{17769B75-CEF4-481D-A263-77F04E60F490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoragingTest", "StoragingTest\StoragingTest.csproj", "{420845F7-9F09-457A-90DF-DF137DD8EB96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B54DA4AD-9BE1-4AFD-B022-6CA55DBDF6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B54DA4AD-9BE1-4AFD-B022-6CA55DBDF6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B54DA4AD-9BE1-4AFD-B022-6CA55DBDF6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17769B75-CEF4-481D-A263-77F04E60F490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17769B75-CEF4-481D-A263-77F04E60F490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17769B75-CEF4-481D-A263-77F04E60F490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17769B75-CEF4-481D-A263-77F04E60F490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{420845F7-9F09-457A-90DF-DF137DD8EB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{420845F7-9F09-457A-90DF-DF137DD8EB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{420845F7-9F09-457A-90DF-DF137DD8EB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{420845F7-9F09-457A-90DF-DF137DD8EB96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

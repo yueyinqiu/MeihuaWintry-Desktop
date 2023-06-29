@@ -22,6 +22,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\MeihuaWintryDesktop.Storaging\MeihuaWintryDesktop.Storaging.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Controls\CaseDisplayControl.axaml.cs">
 	    <DependentUpon>CaseDisplayControl.axaml</DependentUpon>
 	  </Compile>
