@@ -12,25 +12,25 @@ public sealed class StoredCase
         OpenTime? openTime,
         IReadOnlyList<string> tags,
         WesternTime? westernTime,
-        ChineseSolarTime? solarTime,
-        ChineseLunarTime? lunarTime,
-        string? description,
-        string? guaMaster,
-        string? guaMasterDescription,
-        IReadOnlyList<int> guaNumber,
+        ChineseSolarTime? chineseSolarTime,
+        ChineseLunarTime? chineseLunarTime,
+        string? notes,
+        string? guaOwner,
+        string? guaOwnerNotes,
+        IReadOnlyList<int> guaNumbers,
         Gua?[] gua
         )
     {
         Title = title ?? "";
         OpenTime = openTime;
-        Notes = description ?? "";
+        Notes = notes ?? "";
         Tags = tags;
         WesternTime = westernTime;
-        ChineseSolarTime = solarTime;
-        ChineseLunarTime = lunarTime;
-        GuaOwner = guaMaster?? "";
-        GuaOwnerNotes = guaMasterDescription ?? "";
-        GuaNumbers = guaNumber;
+        ChineseSolarTime = chineseSolarTime;
+        ChineseLunarTime = chineseLunarTime;
+        GuaOwner = guaOwner?? "";
+        GuaOwnerNotes = guaOwnerNotes ?? "";
+        GuaNumbers = guaNumbers;
         Guas = gua;
     }
 
