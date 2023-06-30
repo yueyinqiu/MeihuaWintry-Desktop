@@ -29,7 +29,9 @@ public sealed class WesternTime : IStringConvertibleForJson<WesternTime>
         [MaybeNullWhen(false)] out WesternTime result)
     {
         result = new WesternTime(DateTime.Parse(s));
-        if (result != null) return true;
-        else return false;
+        if (result != null) 
+            return true;
+        else 
+            return false;
     }
 }
