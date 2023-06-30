@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using YiJingFramework.PrimitiveTypes.Serialization;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Entities;
-[JsonSerializable(typeof(JsonConverterOfStringConvertibleForJson<WesternTime>))]
+[JsonConverter(typeof(JsonConverterOfStringConvertibleForJson<WesternTime>))]
 public sealed class WesternTime : IStringConvertibleForJson<WesternTime>
 {
     public DateTime Time { get; }

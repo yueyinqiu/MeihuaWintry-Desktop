@@ -46,7 +46,7 @@ public sealed class StoredCase
         this.WesternTime = westernTime;
         this.ChineseSolarTime = chineseSolarTime ?? 
             new(null, null, null, null, null, null, null, null);
-        this.ChineseLunarTime = chineseLunarTime ?? new();
+        this.ChineseLunarTime = chineseLunarTime ?? new(null,null);
 
         this.Numbers = numbers ?? Array.Empty<int>();
         this.Guas = AsNotNull(guas);

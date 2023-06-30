@@ -9,9 +9,9 @@ var data = new StoredCase(
     owner: "Zombie",
     ownerDescription: "I anm a zombie",
     westernTime: new(DateTime.Now),
-    chineseSolarTime: new(Tiangan.Jia, Dizhi.Mao, null, null, null, null, null, null),
-    chineseLunarTime: null,
-    numbers: new[] { 22, 31, 31 },
+    chineseSolarTime: new(Tiangan.Jia, Dizhi.Mao, null, null, null, null, Tiangan.Yi, Dizhi.Chen),
+    chineseLunarTime: new(1,12),
+    numbers: null,
     guas: new[] { Gua.Parse("001010"), Gua.Parse("111"), Gua.Parse("101") },
     notes: "Hellow World",
     tags: new[] { "success", "faild" });
@@ -24,5 +24,6 @@ Console.WriteLine(dataBack.Title);
 Console.WriteLine(dataBack.LastEdit.ToString());
 Console.WriteLine(dataBack.WesternTime?.Time.ToString());
 Console.WriteLine(dataBack.ChineseSolarTime);
+Console.WriteLine(dataBack.ChineseLunarTime);
 
 Console.ReadKey();

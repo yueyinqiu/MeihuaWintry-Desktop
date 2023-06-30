@@ -12,7 +12,7 @@ using YiJingFramework.PrimitiveTypes.Serialization;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Entities;
 
-[JsonSerializable(typeof(JsonConverterOfStringConvertibleForJson<ChineseSolarTime>))]
+[JsonConverter(typeof(JsonConverterOfStringConvertibleForJson<ChineseSolarTime>))]
 public sealed record ChineseSolarTime(
     Tiangan? YearGan, Dizhi? YearZhi,
     Tiangan? MonthGan, Dizhi? MonthZhi,
@@ -34,49 +34,57 @@ public sealed record ChineseSolarTime(
         if (!Tiangan.TryParse(splitOfS[0], out var yearGan))
         {
             result = null;
-            return false;
+            if (splitOfS[0] != "Null")
+                return false;
         }
 
         if (!Tiangan.TryParse(splitOfS[2], out var monthGan))
         {
             result = null;
-            return false;
+            if (splitOfS[2] != "Null")
+                return false;
         }
 
         if (!Tiangan.TryParse(splitOfS[4], out var dayGan))
         {
             result = null;
-            return false;
+            if (splitOfS[4] != "Null")
+                return false;
         }
 
         if (!Tiangan.TryParse(splitOfS[6], out var timeGan))
         {
             result = null;
-            return false;
+            if (splitOfS[6] != "Null")
+                return false;
         }
 
         if (!Dizhi.TryParse(splitOfS[1], out var yearZhi))
         {
             result = null;
-            return false;
+            if (splitOfS[1] != "Null")
+                return false;
         }
 
         if (!Dizhi.TryParse(splitOfS[3], out var monthZhi))
         {
             result = null;
-            return false;
+            if (splitOfS[3] != "Null")
+                return false;
         }
 
         if (!Dizhi.TryParse(splitOfS[5], out var dayZhi))
         {
             result = null;
-            return false;
+            if (splitOfS[5] != "Null")
+                return false;
         }
 
         if (!Dizhi.TryParse(splitOfS[7], out var timeZhi))
         {
             result = null;
-            return false;
+            if (splitOfS[7] != "Null")
+                return false;
         }
 
         result = new(
