@@ -38,9 +38,7 @@ public partial class App : Application
         
         if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLiftTime)
         {
-            desktopLiftTime.MainWindow = new MainWindow() { 
-                DataFolder = GetDataDirectory() 
-            };
+            desktopLiftTime.MainWindow = new MainWindow();
         }
 
         base.OnFrameworkInitializationCompleted();

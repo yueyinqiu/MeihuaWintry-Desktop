@@ -26,9 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Controls\CaseDisplayControl.axaml.cs">
-	    <DependentUpon>CaseDisplayControl.axaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="MessageWindow.axaml.cs">
 	    <DependentUpon>MessageWindow.axaml</DependentUpon>
 	  </Compile>

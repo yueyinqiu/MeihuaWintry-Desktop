@@ -26,8 +26,5 @@
 						  Header="退出(_X)"/>
 			</MenuItem>
 		</Menu>
-
-		<controls:CaseDisplayControl Name="caseDisplayControl" 
-									 Grid.Row="1"></controls:CaseDisplayControl>
 	</Grid>
 </Window>
