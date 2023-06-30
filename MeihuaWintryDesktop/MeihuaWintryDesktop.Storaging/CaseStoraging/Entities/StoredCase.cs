@@ -44,7 +44,8 @@ public sealed class StoredCase
         this.OwnerDescription = ownerDescription ?? "";
 
         this.WesternTime = westernTime;
-        this.ChineseSolarTime = chineseSolarTime ?? new();
+        this.ChineseSolarTime = chineseSolarTime ?? 
+            new(null, null, null, null, null, null, null, null);
         this.ChineseLunarTime = chineseLunarTime ?? new();
 
         this.Numbers = numbers ?? Array.Empty<int>();

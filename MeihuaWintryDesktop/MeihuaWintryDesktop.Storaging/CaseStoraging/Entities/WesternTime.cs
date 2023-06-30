@@ -16,12 +16,12 @@ public sealed class WesternTime : IStringConvertibleForJson<WesternTime>
 
     public WesternTime(DateTime time)
     {
-        Time = time;
+        this.Time = time;
     }
 
     public string ToStringForJson()
     {
-        return Time.ToString();
+        return this.Time.ToString();
     }
 
     public static bool FromStringForJson(
