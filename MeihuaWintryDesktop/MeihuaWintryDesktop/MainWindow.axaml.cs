@@ -11,7 +11,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
-
+        
         this.Closing += async (_, e) => {
             if (isCloseRequired)
                 return;

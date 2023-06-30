@@ -2,6 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using MeihuaWintryDesktop.ViewModelling;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -35,10 +36,18 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         BindingPlugins.DataValidators.RemoveAt(0);
-        
+
         if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLiftTime)
         {
-            desktopLiftTime.MainWindow = new MainWindow();
+            desktopLiftTime.MainWindow = new MainWindow() {
+                DataContext = new MainViewModel()
+            };
+        }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
+        {
+            singleView.MainView = new MainView() {
+                DataContext = new MainViewModel()
+            };
         }
 
         base.OnFrameworkInitializationCompleted();

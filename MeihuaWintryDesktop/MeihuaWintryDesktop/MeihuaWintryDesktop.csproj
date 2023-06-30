@@ -16,17 +16,11 @@
 		<PackageReference Include="Avalonia.Desktop" Version="11.0.0-rc1.1" />
 		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.0-rc1.1" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-rc1.1" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-rc1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\MeihuaWintryDesktop.Storaging\MeihuaWintryDesktop.Storaging.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="MessageWindow.axaml.cs">
-	    <DependentUpon>MessageWindow.axaml</DependentUpon>
-	  </Compile>
+	  <ProjectReference Include="..\MeihuaWintryDesktop.ViewModelling\MeihuaWintryDesktop.ViewModelling.csproj" />
 	</ItemGroup>
 </Project>
