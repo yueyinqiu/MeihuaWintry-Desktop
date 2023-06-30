@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using YiJingFramework.PrimitiveTypes.Serialization;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Entities;
-[JsonSerializable(typeof(JsonConverterOfStringConvertibleForJson<StoredWesternTime>))]
-public sealed class StoredWesternTime : IStringConvertibleForJson<StoredWesternTime>
+[JsonSerializable(typeof(JsonConverterOfStringConvertibleForJson<WesternTime>))]
+public sealed class WesternTime : IStringConvertibleForJson<WesternTime>
 {
     public DateTime Time { get; }
 
-    public StoredWesternTime(DateTime time)
+    public WesternTime(DateTime time)
     {
         Time = time;
     }
@@ -26,9 +26,9 @@ public sealed class StoredWesternTime : IStringConvertibleForJson<StoredWesternT
 
     public static bool FromStringForJson(
         string s,
-        [MaybeNullWhen(false)] out StoredWesternTime result)
+        [MaybeNullWhen(false)] out WesternTime result)
     {
-        result = new StoredWesternTime(DateTime.Parse(s));
+        result = new WesternTime(DateTime.Parse(s));
         if (result != null) return true;
         else return false;
     }
