@@ -14,7 +14,7 @@
 	</UserControl.Resources>
 
 	<Panel>
-		<ContentControl Content="{Binding PopupView}" ZIndex="1">
+		<ContentControl Content="{Binding Popup}" ZIndex="1">
 			<ContentControl.DataTemplates>
 				<DataTemplate DataType="vm:MessagePopupViewModel">
 					<Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
@@ -25,8 +25,23 @@
 			</ContentControl.DataTemplates>
 		</ContentControl>
 
-		<Grid RowDefinitions="Auto, *">
-			<ToggleButton IsChecked="{Binding CanClose, Converter={StaticResource converterNot}}">保持开启</ToggleButton>
+		<Grid ColumnDefinitions="Auto, *">
+			<TabControl Grid.Column="1" ItemsSource="{Binding Editors}">
+				<TabControl.ItemTemplate>
+					<DataTemplate DataType="vm:IEditorViewModel">
+						<Grid ColumnDefinitions="Auto, *, Auto">
+							<TextBlock Text="{Binding Title}"></TextBlock>
+							<Button Grid.Column="2"
+									CommandParameter="{Binding .}">×</Button>
+						</Grid>
+					</DataTemplate>
+				</TabControl.ItemTemplate>
+				<TabControl.DataTemplates>
+					<DataTemplate DataType="vm:WelcomeViewModel">
+						<ToggleButton IsChecked="{Binding IsNotSaved}">保持开启</ToggleButton>
+					</DataTemplate>
+				</TabControl.DataTemplates>
+			</TabControl>
 		</Grid>
 	</Panel>
 </UserControl>

@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MeihuaWintryDesktop.ViewModelling;
-public interface IViewModel
+public interface IPopupViewModel
 {
 }
