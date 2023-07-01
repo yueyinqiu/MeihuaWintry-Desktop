@@ -2,7 +2,7 @@
 
 namespace MeihuaWintryDesktop.ViewModelling;
 
-public sealed class MessageDisplayViewModel : ObservableObject
+public sealed partial class MessageDisplayViewModel : ObservableObject, IViewModel
 {
 
 }

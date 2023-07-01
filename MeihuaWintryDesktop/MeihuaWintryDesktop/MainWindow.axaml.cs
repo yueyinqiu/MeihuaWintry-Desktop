@@ -7,35 +7,32 @@ namespace MeihuaWintryDesktop;
 
 public partial class MainWindow : Window
 {
-    bool isCloseRequired = false;
     public MainWindow()
     {
         this.InitializeComponent();
-        
-        this.Closing += async (_, e) => {
-            if (isCloseRequired)
-                return;
-            
-            e.Cancel = true;
-            if (await this.CheckSavedAndConfirmContinuing())
-            {
-                isCloseRequired = true;
-                this.Close();
-            }
-        };
+
+        this.Closing += this.ThisClosing;
+        this.mainView.Closed += (_, _) => this.ForceClose();
     }
 
-    private async Task<bool> CheckSavedAndConfirmContinuing()
+    protected override void OnLoaded()
     {
-        return true;
+        this.mainView.DataContext = this.DataContext;
+    }
 
-        /*
-        if (caseDisplayControl.IsSaved)
-            return true;
+    bool isCloseRequired = false;
+    private void ThisClosing(object? sender, WindowClosingEventArgs e)
+    {
+        if (isCloseRequired)
+            return;
 
-        var window = new MessageWindow();
-        return await window.ShowDialog(
-            this, "占例未保存", "当前占例还没有保存，确定要继续么？", "继续", "取消");
-        */
+        e.Cancel = true;
+        this.mainView.TryClose();
+    }
+
+    private void ForceClose()
+    {
+        isCloseRequired = true;
+        this.Close();
     }
 }

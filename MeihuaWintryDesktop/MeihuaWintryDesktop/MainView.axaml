@@ -6,8 +6,10 @@
 		xmlns:vm="using:MeihuaWintryDesktop.ViewModelling"
         mc:Ignorable="d"
 		d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="MeihuaWintryDesktop.MainView">
+        x:Class="MeihuaWintryDesktop.MainView"
+		x:DataType="vm:MainViewModel">
+	
 	<Grid RowDefinitions="Auto, *">
-		<TextBlock>Hello World!</TextBlock>
+		<ToggleButton IsChecked="{Binding CanClose}">保持开启</ToggleButton>
 	</Grid>
 </UserControl>
