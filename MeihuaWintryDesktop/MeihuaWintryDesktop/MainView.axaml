@@ -4,12 +4,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="using:MeihuaWintryDesktop"
 		xmlns:vm="using:MeihuaWintryDesktop.ViewModelling"
+		xmlns:converters="using:MeihuaWintryDesktop.Converters"
         mc:Ignorable="d"
 		d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MeihuaWintryDesktop.MainView"
 		x:DataType="vm:MainViewModel">
+	<UserControl.Resources>
+		<converters:BooleanNotConveter x:Key="converterNot"/>
+	</UserControl.Resources>
 	
 	<Grid RowDefinitions="Auto, *">
-		<ToggleButton IsChecked="{Binding CanClose}">保持开启</ToggleButton>
+		<ToggleButton IsChecked="{Binding CanClose, Converter={StaticResource converterNot}}">保持开启</ToggleButton>
 	</Grid>
 </UserControl>
