@@ -30,6 +30,6 @@ public sealed class BooleanNotConveter : IValueConverter
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return Convert(value, targetType, parameter, culture);
+        return this.Convert(value, targetType, parameter, culture);
     }
 }

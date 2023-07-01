@@ -23,4 +23,10 @@
 	  <ProjectReference Include="..\MeihuaWintryDesktop.Storaging\MeihuaWintryDesktop.Storaging.csproj" />
 	  <ProjectReference Include="..\MeihuaWintryDesktop.ViewModelling\MeihuaWintryDesktop.ViewModelling.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="MessagePopup.axaml.cs">
+	    <DependentUpon>MessagePopup.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 </Project>

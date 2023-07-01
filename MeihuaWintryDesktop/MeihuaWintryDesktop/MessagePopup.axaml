@@ -1,0 +1,29 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="using:MeihuaWintryDesktop"
+		xmlns:vm="using:MeihuaWintryDesktop.ViewModelling"
+		xmlns:converters="using:MeihuaWintryDesktop.Converters"
+        mc:Ignorable="d"
+		d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MeihuaWintryDesktop.MessagePopup"
+		x:DataType="vm:MessagePopupViewModel">
+	
+	<Grid RowDefinitions="*, Auto" ColumnDefinitions="*, *" Margin="15">
+		<TextBox Grid.ColumnSpan="2"
+				 Text="{Binding Message}"
+				 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+				 IsReadOnly="True"
+				 AcceptsReturn="True" TextWrapping="WrapWithOverflow"/>
+		<Button Grid.Row="1"
+				Content="{Binding YesText}"
+				VerticalAlignment="Center" HorizontalAlignment="Stretch"
+				Command="{Binding ChooseYesCommand}"/>
+		<Button Grid.Row="1" Grid.Column="1"
+				Content="{Binding NoText}"
+				VerticalAlignment="Center" HorizontalAlignment="Stretch"
+				Command="{Binding ChooseNoCommand}"/>
+	</Grid>
+	
+</UserControl>

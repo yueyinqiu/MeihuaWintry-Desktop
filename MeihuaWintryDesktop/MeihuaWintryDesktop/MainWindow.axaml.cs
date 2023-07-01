@@ -23,7 +23,7 @@ public partial class MainWindow : Window
     bool isCloseRequired = false;
     private void ThisClosing(object? sender, WindowClosingEventArgs e)
     {
-        if (isCloseRequired)
+        if (this.isCloseRequired)
             return;
 
         e.Cancel = true;
@@ -32,7 +32,7 @@ public partial class MainWindow : Window
 
     private void ForceClose()
     {
-        isCloseRequired = true;
+        this.isCloseRequired = true;
         this.Close();
     }
 }
