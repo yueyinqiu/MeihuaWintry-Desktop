@@ -12,13 +12,15 @@ public sealed partial class MessagePopupViewModel : ObservableObject, IViewModel
         public static MessagePopupButtonClickedEventArgs No { get; } = new() { IsYes = false };
     }
 
-    public MessagePopupViewModel(string message, string yesText, string? noText = null)
+    public MessagePopupViewModel(string title, string message, string yesText, string? noText = null)
     {
+        this.Title = title;
         this.Message = message;
         this.YesText = yesText;
         this.NoText = noText;
     }
 
+    public string Title { get; }
     public string Message { get; }
     public string YesText { get; }
     public string? NoText { get; }

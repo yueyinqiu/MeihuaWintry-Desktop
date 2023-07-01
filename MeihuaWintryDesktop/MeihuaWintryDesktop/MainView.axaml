@@ -13,17 +13,20 @@
 		<converters:BooleanNotConveter x:Key="converterNot"/>
 	</UserControl.Resources>
 
-	<Grid>
+	<Panel>
 		<ContentControl Content="{Binding PopupView}" ZIndex="1">
 			<ContentControl.DataTemplates>
 				<DataTemplate DataType="vm:MessagePopupViewModel">
-					<local:MessagePopup></local:MessagePopup>
+					<Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+						   Background="#88000000">
+						<local:MessagePopup></local:MessagePopup>
+					</Panel>
 				</DataTemplate>
 			</ContentControl.DataTemplates>
 		</ContentControl>
-		
+
 		<Grid RowDefinitions="Auto, *">
 			<ToggleButton IsChecked="{Binding CanClose, Converter={StaticResource converterNot}}">保持开启</ToggleButton>
 		</Grid>
-	</Grid>
+	</Panel>
 </UserControl>

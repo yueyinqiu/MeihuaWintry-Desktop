@@ -16,7 +16,7 @@ public sealed partial class MainViewModel : ObservableObject, IViewModel
     [ObservableProperty]
     public bool canClose;
 
-    [RelayCommand(CanExecute = nameof(CanRequestCloseExecute))]
+    [RelayCommand]
     private void RequestClose()
     {
         if (this.CanClose)
@@ -25,7 +25,9 @@ public sealed partial class MainViewModel : ObservableObject, IViewModel
             return;
         }
 
-        var popup = new MessagePopupViewModel("你确定要退出么？", "确定", "取消");
+        var popup = new MessagePopupViewModel(
+            "确定要退出么？",
+            "您当前编辑的内容可能还未保存。确定要退出么？", "确定", "取消");
         popup.Choosed += (sender, e) => {
             if (this.PopupView == sender)
                 this.PopupView = null;
@@ -33,9 +35,5 @@ public sealed partial class MainViewModel : ObservableObject, IViewModel
                 this.IsClosed = true;
         };
         this.PopupView = popup;
-    }
-    private bool CanRequestCloseExecute()
-    {
-        return !this.IsClosed;
     }
 }

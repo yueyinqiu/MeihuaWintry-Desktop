@@ -5,7 +5,9 @@
 		xmlns:local="using:MeihuaWintryDesktop"
         mc:Ignorable="d"
         x:Class="MeihuaWintryDesktop.MainWindow"
+		MinWidth="800" MinHeight="450"
         Icon="/Assets/taiji.png"
-        Title="MeihuaWintry">
+        Title="冬日梅花"
+		WindowStartupLocation="CenterScreen">
 	<local:MainView Name="mainView"></local:MainView>
 </Window>

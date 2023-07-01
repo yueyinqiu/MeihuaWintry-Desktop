@@ -6,24 +6,31 @@
 		xmlns:vm="using:MeihuaWintryDesktop.ViewModelling"
 		xmlns:converters="using:MeihuaWintryDesktop.Converters"
         mc:Ignorable="d"
-		d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MeihuaWintryDesktop.MessagePopup"
 		x:DataType="vm:MessagePopupViewModel">
-	
-	<Grid RowDefinitions="*, Auto" ColumnDefinitions="*, *" Margin="15">
-		<TextBox Grid.ColumnSpan="2"
-				 Text="{Binding Message}"
-				 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-				 IsReadOnly="True"
-				 AcceptsReturn="True" TextWrapping="WrapWithOverflow"/>
-		<Button Grid.Row="1"
-				Content="{Binding YesText}"
-				VerticalAlignment="Center" HorizontalAlignment="Stretch"
-				Command="{Binding ChooseYesCommand}"/>
-		<Button Grid.Row="1" Grid.Column="1"
-				Content="{Binding NoText}"
-				VerticalAlignment="Center" HorizontalAlignment="Stretch"
-				Command="{Binding ChooseNoCommand}"/>
+
+	<Grid RowDefinitions="*, 3*, *" ColumnDefinitions="*, 3*, *">
+		<Panel Grid.Row="1" Grid.Column="1" Background="White">
+			<Grid RowDefinitions="Auto, *, Auto" Margin="16">
+				<Label Content="{Binding Title}"
+					   VerticalAlignment="Top" HorizontalAlignment="Left"/>
+				<TextBox Grid.Row="1"
+						 Text="{Binding Message}"
+						 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+						 IsReadOnly="False"
+						 AcceptsReturn="True" TextWrapping="WrapWithOverflow"/>
+
+				<Grid Grid.Row="2" ColumnDefinitions="*, Auto, Auto">
+					<Button Grid.Column="1"
+							Content="{Binding YesText}"
+							VerticalAlignment="Center" HorizontalAlignment="Center"
+							Command="{Binding ChooseYesCommand}"/>
+					<Button Grid.Column="2"
+							Content="{Binding NoText}"
+							VerticalAlignment="Center" HorizontalAlignment="Center"
+							Command="{Binding ChooseNoCommand}"/>
+				</Grid>
+			</Grid>
+		</Panel>
 	</Grid>
-	
 </UserControl>
