@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace MeihuaWintryDesktop.ViewModelling;
 
@@ -15,21 +16,48 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
     private IPopupViewModel? popup = null;
 
     public ObservableCollection<IEditorViewModel> Editors { get; } = new() {
-        new WelcomeViewModel()
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
+        new WelcomeViewModel(),
     };
 
     [RelayCommand]
     private void RequestClose()
     {
-        if (!this.Editors.Any(e => e.IsNotSaved))
+        var notSaved = this.Editors.Where(e => e.IsNotSaved).Select(e => e.Title);
+        if (!notSaved.Any())
         {
             this.IsClosed = true;
             return;
         }
 
+        var message = new StringBuilder();
+        _ = message.AppendLine("以下编辑器中的内容可能还未保存，您确定要退出么？");
+        foreach(var line in notSaved)
+        {
+            _ = message.Append("\t-");
+            _ = message.AppendLine(line);
+        }
         var popup = new MessagePopupViewModel(
             "确定要退出么？",
-            "您当前编辑的内容可能还未保存。确定要退出么？", "确定", "取消");
+            message.ToString(),
+            "确定", "取消");
         popup.Choosed += (sender, e) => {
             if (this.Popup == sender)
                 this.Popup = null;
@@ -50,7 +78,8 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
 
         var popup = new MessagePopupViewModel(
             "确定要关闭么？",
-            "您当前编辑的内容可能还未保存。确定要关闭么？", "确定", "取消");
+            "您当前编辑的内容可能还未保存，确定要关闭么？", 
+            "确定", "取消");
         popup.Choosed += (sender, e) => {
             if (this.Popup == sender)
                 this.Popup = null;
