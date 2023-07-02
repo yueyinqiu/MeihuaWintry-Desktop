@@ -32,6 +32,7 @@
 						<Grid ColumnDefinitions="Auto, *, Auto">
 							<TextBlock Text="{Binding Title}"></TextBlock>
 							<Button Grid.Column="2"
+									Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabControl}}, Path=((vm:MainViewModel)DataContext).RequestEditorCloseCommand}"
 									CommandParameter="{Binding .}">×</Button>
 						</Grid>
 					</DataTemplate>

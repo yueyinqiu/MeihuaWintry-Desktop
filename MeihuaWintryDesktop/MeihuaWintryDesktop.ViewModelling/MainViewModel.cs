@@ -42,20 +42,20 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
     [RelayCommand]
     private void RequestEditorClose(IEditorViewModel editorViewModel)
     {
-        if (!this.Editors.Any(e => e.IsNotSaved))
+        if (!editorViewModel.IsNotSaved)
         {
-            this.IsClosed = true;
+            this.Editors.Remove(editorViewModel);
             return;
         }
 
         var popup = new MessagePopupViewModel(
-            "确定要退出么？",
-            "您当前编辑的内容可能还未保存。确定要退出么？", "确定", "取消");
+            "确定要关闭么？",
+            "您当前编辑的内容可能还未保存。确定要关闭么？", "确定", "取消");
         popup.Choosed += (sender, e) => {
             if (this.Popup == sender)
                 this.Popup = null;
             if (e.IsYes)
-                this.IsClosed = true;
+                this.Editors.Remove(editorViewModel);
         };
         this.Popup = popup;
     }
