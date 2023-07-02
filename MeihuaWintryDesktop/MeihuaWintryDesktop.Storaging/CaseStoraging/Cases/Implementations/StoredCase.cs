@@ -1,10 +1,9 @@
 ﻿using LiteDB;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities;
 using YiJingFramework.PrimitiveTypes;
 
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities.Implementations;
+namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
-internal sealed class StoredCase : IStoredCase
+internal sealed class StoredCase : IStoredCaseWithId
 {
     private static IEnumerable<T> SelectNotNull<T>(IEnumerable<T?>? values)
     {
@@ -18,6 +17,8 @@ internal sealed class StoredCase : IStoredCase
     }
 
     public ObjectId? CaseId { get; set; }
+    ObjectId IStoredCaseWithId.CaseId => this.CaseId ?? ObjectId.Empty;
+
     public DateTime LastEdit { get; set; }
 
     public string? Title { get; set; }

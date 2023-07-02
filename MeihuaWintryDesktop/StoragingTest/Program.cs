@@ -1,7 +1,10 @@
 ﻿using LiteDB;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities.Implementations;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 using StoragingTest;
+using System;
 using YiJingFramework.PrimitiveTypes;
+
 
 var mapper = new BsonMapper();
 mapper.RegisterType(
@@ -13,6 +16,10 @@ mapper.RegisterType(
 mapper.RegisterType(
     (x) => x.ToString(),
     (b) => Gua.Parse(b.AsString));
+
+
+var exp1 = mapper.GetExpression((StoredCase s) => s.Owner);
+var exp2 = mapper.GetExpression((IStoredCase s) => s.Owner);
 
 using LiteDatabase liteDatabase = new LiteDatabase("test.db", mapper);
 var collection = liteDatabase.GetCollection<StoredCase>("c1");

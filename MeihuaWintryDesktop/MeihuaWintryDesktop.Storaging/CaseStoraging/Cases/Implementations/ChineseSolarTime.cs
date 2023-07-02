@@ -1,5 +1,4 @@
-﻿using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 using YiJingFramework.PrimitiveTypes;
 using YiJingFramework.PrimitiveTypes.Serialization;
 
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities.Implementations;
+namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
 internal sealed class ChineseSolarTime : IChineseSolarTime
 {

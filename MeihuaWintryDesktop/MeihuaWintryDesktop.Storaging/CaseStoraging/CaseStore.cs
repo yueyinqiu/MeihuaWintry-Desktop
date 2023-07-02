@@ -1,5 +1,6 @@
 ﻿using LiteDB;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging;
 public sealed class CaseStore : IDisposable
@@ -15,5 +16,5 @@ public sealed class CaseStore : IDisposable
         this.database.Dispose();
     }
 
-    public CaseManager Cases { get; }
+    public ICaseManager Cases { get; }
 }
