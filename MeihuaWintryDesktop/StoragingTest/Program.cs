@@ -1,29 +1,82 @@
-﻿using MeihuaWintryDesktop.Storaging.CaseStoraging.Entities;
-using System.Diagnostics;
-using System.Text.Json;
+﻿using LiteDB;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Entities.Implementations;
+using StoragingTest;
 using YiJingFramework.PrimitiveTypes;
 
-var data = new StoredCase(
-    lastEdit: DateTime.Now,
-    title: "title here",
-    owner: "Zombie",
-    ownerDescription: "I anm a zombie",
-    westernTime: new(DateTime.Now),
-    chineseSolarTime: new(Tiangan.Jia, Dizhi.Mao, null, null, null, null, Tiangan.Yi, Dizhi.Chen),
-    chineseLunarTime: new(1,12),
-    numbers: null,
-    guas: new[] { Gua.Parse("001010"), Gua.Parse("111"), Gua.Parse("101") },
-    notes: "Hellow World",
-    tags: new[] { "success", "faild" });
-var s = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+var mapper = new BsonMapper();
+mapper.RegisterType(
+    (x) => x.ToString(),
+    (b) => Tiangan.Parse(b.AsString));
+mapper.RegisterType(
+    (x) => x.ToString(),
+    (b) => Dizhi.Parse(b.AsString));
+mapper.RegisterType(
+    (x) => x.ToString(),
+    (b) => Gua.Parse(b.AsString));
 
-var dataBack = JsonSerializer.Deserialize<StoredCase>(s);
-Debug.Assert(dataBack is not null); // 如果 s 就是字符串 "null" ，它会返回 null 的……
+using LiteDatabase liteDatabase = new LiteDatabase("test.db", mapper);
+var collection = liteDatabase.GetCollection<StoredCase>("c1");
+collection.DeleteAll();
 
-Console.WriteLine(dataBack.Title);
-Console.WriteLine(dataBack.LastEdit.ToString());
-Console.WriteLine(dataBack.WesternTime?.Time.ToString());
-Console.WriteLine(dataBack.ChineseSolarTime);
-Console.WriteLine(dataBack.ChineseLunarTime);
+var data = new StoredCase() {
+    LastEdit = DateTime.Now,
+    ChineseSolarTime = new ChineseSolarTime() {
+        YearGan = Tiangan.Jia,
+        YearZhi = Dizhi.Mao,
+    },
+    Guas = new NamedGua[] {
+         new NamedGua() {
+              Name = "本", Value = Gua.Parse("000000")
+         },
+         new NamedGua() {
+              Name = "互", Value = Gua.Parse("000000")
+         },
+         new NamedGua() {
+              Name = "变", Value = Gua.Parse("000001")
+         }
+    },
+    Notes = "Hello World!",
+    Numbers = new NamedStruct<int>[] {
+         new NamedStruct<int>() {
+              Name = "上卦数", Value = 16
+         },
+         new NamedStruct<int>() {
+              Name = "下卦数", Value = 32
+         },
+         new NamedStruct<int>() {
+              Name = "动爻数", Value = 54
+         }
+    },
+    Owner = "Mr. Zombie",
+    OwnerDescription = "It's a zombie.",
+    Tags = new string[] {
+        "non-living", "zombie", "crazy"
+    },
+    Title = "ZOMBIE HERE"
+};
+
+var id = collection.Insert(data);
+var back = collection.FindById(id);
+
+var collectionWeakTyped = liteDatabase.GetCollection("c1");
+var backDocument = collectionWeakTyped.FindById(id);
+
+var dataBad = new BadStoredCase() {
+    Numbers = new NamedObject[] {
+         new NamedObject() {
+              Name = "null int", Value = null // 读取时会认为是 0
+         },
+         new NamedObject() {
+              Name = "null int", Value = "qwer" // 读取时会导致异常
+         }
+    },
+    Guas = new NamedObject[] {
+         new NamedObject() {
+              Name = "null", Value = "qwer" // 读取时会导致异常（ mapper.RegisterType 里的方法决定的）
+         }
+    }
+};
+var badId = collectionWeakTyped.Insert(mapper.ToDocument(dataBad));
+var backBad = collection.FindById(badId);
 
 Console.ReadKey();
