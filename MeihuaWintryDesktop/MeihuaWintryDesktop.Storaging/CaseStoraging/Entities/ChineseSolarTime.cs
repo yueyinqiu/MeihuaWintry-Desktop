@@ -31,67 +31,25 @@ public sealed record ChineseSolarTime(
             return false;
         }
 
-        if (!Tiangan.TryParse(splitOfS[0], out var yearGan))
+        static Tiangan? ParseTiangan(string s)
         {
-            result = null;
-            if (splitOfS[0] != "Null")
-                return false;
+            if (Tiangan.TryParse(s, out var t))
+                return t;
+            else return null;
         }
-
-        if (!Tiangan.TryParse(splitOfS[2], out var monthGan))
+        static Dizhi? ParseDizhi(string s)
         {
-            result = null;
-            if (splitOfS[2] != "Null")
-                return false;
-        }
-
-        if (!Tiangan.TryParse(splitOfS[4], out var dayGan))
-        {
-            result = null;
-            if (splitOfS[4] != "Null")
-                return false;
-        }
-
-        if (!Tiangan.TryParse(splitOfS[6], out var timeGan))
-        {
-            result = null;
-            if (splitOfS[6] != "Null")
-                return false;
-        }
-
-        if (!Dizhi.TryParse(splitOfS[1], out var yearZhi))
-        {
-            result = null;
-            if (splitOfS[1] != "Null")
-                return false;
-        }
-
-        if (!Dizhi.TryParse(splitOfS[3], out var monthZhi))
-        {
-            result = null;
-            if (splitOfS[3] != "Null")
-                return false;
-        }
-
-        if (!Dizhi.TryParse(splitOfS[5], out var dayZhi))
-        {
-            result = null;
-            if (splitOfS[5] != "Null")
-                return false;
-        }
-
-        if (!Dizhi.TryParse(splitOfS[7], out var timeZhi))
-        {
-            result = null;
-            if (splitOfS[7] != "Null")
-                return false;
+            if (Dizhi.TryParse(s, out var d))
+                return d;
+            else
+                return null;
         }
 
         result = new(
-            yearGan, yearZhi,
-            monthGan, monthZhi,
-            dayGan, dayZhi,
-            timeGan, timeZhi);
+            ParseTiangan(splitOfS[0]), ParseDizhi(splitOfS[1]),
+            ParseTiangan(splitOfS[2]), ParseDizhi(splitOfS[3]),
+            ParseTiangan(splitOfS[4]), ParseDizhi(splitOfS[5]),
+            ParseTiangan(splitOfS[6]), ParseDizhi(splitOfS[7]));
         return true;
     }
 
