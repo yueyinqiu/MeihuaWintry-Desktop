@@ -1,4 +1,7 @@
 ﻿using LiteDB;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
@@ -16,33 +19,60 @@ internal sealed class StoredCase : IStoredCaseWithId
         }
     }
 
-    public ObjectId? CaseId { get; set; }
+    public required ObjectId? CaseId { get; set; }
     ObjectId IStoredCaseWithId.CaseId => this.CaseId ?? ObjectId.Empty;
 
-    public DateTime LastEdit { get; set; }
+    public required DateTime LastEdit { get; set; }
 
-    public string? Title { get; set; }
+    public required string? Title { get; set; }
     string IStoredCase.Title => this.Title ?? "";
 
-    public string? Owner { get; set; }
+    public required string? Owner { get; set; }
     string IStoredCase.Owner => this.Owner ?? "";
-    public string? OwnerDescription { get; set; }
+    public required string? OwnerDescription { get; set; }
     string IStoredCase.OwnerDescription => this.OwnerDescription ?? "";
 
-    // public GregorianTime? GregorianTime { get; set; }
-    IGregorianTime IStoredCase.GregorianTime => throw new NotImplementedException();
-    public ChineseSolarTime? ChineseSolarTime { get; set; }
-    IChineseSolarTime IStoredCase.ChineseSolarTime => this.ChineseSolarTime ?? new ChineseSolarTime();
-    // public ChineseLunarTime? ChineseLunarTime { get; set; }
-    IChineseLunarTime IStoredCase.ChineseLunarTime => throw new NotImplementedException();
+    public required GregorianTime? GregorianTime { get; set; }
+    IGregorianTime IStoredCase.GregorianTime => this.GregorianTime ?? GregorianTime.Empty;
+    public required ChineseSolarTime? ChineseSolarTime { get; set; }
+    IChineseSolarTime IStoredCase.ChineseSolarTime => this.ChineseSolarTime ?? ChineseSolarTime.Empty;
+    public required ChineseLunarTime? ChineseLunarTime { get; set; }
+    IChineseLunarTime IStoredCase.ChineseLunarTime => this.ChineseLunarTime ?? ChineseLunarTime.Empty;
 
-    public NamedStruct<int>?[]? Numbers { get; set; }
+    public required NamedStruct<int>?[]? Numbers { get; set; }
     IEnumerable<INamed<int>> IStoredCase.Numbers => SelectNotNull(this.Numbers);
-    public NamedGua?[]? Guas { get; set; }
+    public required NamedGua?[]? Guas { get; set; }
     IEnumerable<INamed<Gua>> IStoredCase.Guas => SelectNotNull(this.Guas);
 
-    public string? Notes { get; set; }
+    public required string? Notes { get; set; }
     string IStoredCase.Notes => this.Notes ?? "";
-    public string?[]? Tags { get; set; }
+    public required string?[]? Tags { get; set; }
     IEnumerable<string> IStoredCase.Tags => SelectNotNull(this.Tags);
+
+    public static StoredCase FromInterfaceTypeNoId(
+        IStoredCase c, DateTime? lastEdit = null)
+    {
+        return new StoredCase() {
+            CaseId = null,
+            ChineseLunarTime = ChineseLunarTime.FromInterfaceType(c.ChineseLunarTime),
+            ChineseSolarTime = ChineseSolarTime.FromInterfaceType(c.ChineseSolarTime),
+            GregorianTime = GregorianTime.FromInterfaceType(c.GregorianTime),
+            Guas = c.Guas.Select(NamedGua.FromInterfaceType).ToArray(),
+            LastEdit = lastEdit ?? DateTime.Now,
+            Notes = c.Notes,
+            Numbers = c.Numbers.Select(NamedStruct<int>.FromInterfaceType).ToArray(),
+            Owner = c.Owner,
+            OwnerDescription = c.OwnerDescription,
+            Tags = c.Tags.ToArray(),
+            Title = c.Title
+        };
+    }
+
+    public static StoredCase FromInterfaceType(
+        IStoredCaseWithId c, DateTime? lastEdit = null)
+    {
+        var result = FromInterfaceTypeNoId(c, lastEdit);
+        result.CaseId = c.CaseId;
+        return result;
+    }
 }

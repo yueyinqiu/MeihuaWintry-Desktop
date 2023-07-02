@@ -7,15 +7,15 @@ using YiJingFramework.PrimitiveTypes;
 
 
 var mapper = new BsonMapper();
-mapper.RegisterType(
-    (x) => x.ToString(),
-    (b) => Tiangan.Parse(b.AsString));
-mapper.RegisterType(
-    (x) => x.ToString(),
-    (b) => Dizhi.Parse(b.AsString));
-mapper.RegisterType(
-    (x) => x.ToString(),
-    (b) => Gua.Parse(b.AsString));
+mapper.RegisterType<Tiangan>(
+    (x) => x.Index,
+    (b) => new(b));
+mapper.RegisterType<Dizhi>(
+    (x) => x.Index,
+    (b) => new(b));
+mapper.RegisterType<Gua>(
+    (x) => x.ToBytes(),
+    (b) => Gua.FromBytes(b));
 
 
 var exp1 = mapper.GetExpression((StoredCase s) => s.Owner);
@@ -26,10 +26,32 @@ var collection = liteDatabase.GetCollection<StoredCase>("c1");
 collection.DeleteAll();
 
 var data = new StoredCase() {
+    CaseId = null,
     LastEdit = DateTime.Now,
+    ChineseLunarTime = new() {
+        Day = null,
+        YearGan = Tiangan.Jia,
+        TimeGan = Tiangan.Gui,
+        TimeZhi = Dizhi.Si,
+        Month = -1,
+        YearZhi = null
+    },
     ChineseSolarTime = new ChineseSolarTime() {
         YearGan = Tiangan.Jia,
         YearZhi = Dizhi.Mao,
+        MonthGan = Tiangan.Jia,
+        MonthZhi = null,
+        DayGan = null,
+        DayZhi = Dizhi.Mao,
+        TimeGan = null,
+        TimeZhi = null,
+    },
+    GregorianTime = new() {
+        Day = null,
+        Year = 0,
+        Hour = 1233,
+        Month = 12,
+        Minute = -4
     },
     Guas = new NamedGua[] {
          new NamedGua() {

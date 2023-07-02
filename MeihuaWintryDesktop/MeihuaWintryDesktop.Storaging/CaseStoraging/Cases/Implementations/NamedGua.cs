@@ -10,9 +10,22 @@ using YiJingFramework.PrimitiveTypes;
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 internal sealed class NamedGua : INamed<Gua>
 {
-    public string? Name { get; set; }
+    public required string? Name { get; set; }
     string INamed<Gua>.Name => this.Name ?? "";
 
-    public Gua? Value { get; set; }
+    public required Gua? Value { get; set; }
     Gua INamed<Gua>.Value => this.Value ?? new Gua();
+
+    public override string ToString()
+    {
+        return $"{this.Name}: {this.Value}";
+    }
+
+    public static NamedGua FromInterfaceType(INamed<Gua> g)
+    {
+        return new NamedGua() {
+            Name = g.Name,
+            Value = g.Value
+        };
+    }
 }

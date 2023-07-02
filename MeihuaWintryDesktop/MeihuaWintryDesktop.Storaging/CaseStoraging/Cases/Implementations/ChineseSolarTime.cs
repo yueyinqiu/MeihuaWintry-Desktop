@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using YiJingFramework.PrimitiveTypes;
-using YiJingFramework.PrimitiveTypes.Serialization;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
 internal sealed class ChineseSolarTime : IChineseSolarTime
 {
-    public Tiangan? YearGan { get; set; }
-    public Dizhi? YearZhi { get; set; }
-    public Tiangan? MonthGan { get; set; }
-    public Dizhi? MonthZhi { get; set; }
-    public Tiangan? DayGan { get; set; }
-    public Dizhi? DayZhi { get; set; }
-    public Tiangan? TimeGan { get; set; }
-    public Dizhi? TimeZhi { get; set; }
+    public required Tiangan? YearGan { get; set; }
+    public required Dizhi? YearZhi { get; set; }
+    public required Tiangan? MonthGan { get; set; }
+    public required Dizhi? MonthZhi { get; set; }
+    public required Tiangan? DayGan { get; set; }
+    public required Dizhi? DayZhi { get; set; }
+    public required Tiangan? TimeGan { get; set; }
+    public required Dizhi? TimeZhi { get; set; }
 
     public override string ToString()
     {
@@ -39,5 +30,36 @@ internal sealed class ChineseSolarTime : IChineseSolarTime
             $"{ToString(this.MonthGan)}{ToString(this.MonthZhi)}月 " +
             $"{ToString(this.DayGan)}{ToString(this.DayZhi)}日 " +
             $"{ToString(this.TimeGan)}{ToString(this.TimeZhi)}时";
+    }
+
+    public static ChineseSolarTime Empty
+    {
+        get
+        {
+            return new() {
+                YearGan = null,
+                MonthGan = null,
+                DayGan = null,
+                TimeGan = null,
+                YearZhi = null,
+                MonthZhi = null,
+                DayZhi = null,
+                TimeZhi = null,
+            };
+        }
+    }
+
+    public static ChineseSolarTime FromInterfaceType(IChineseSolarTime t)
+    {
+        return new ChineseSolarTime() {
+            YearGan = t.YearGan,
+            MonthGan = t.MonthGan,
+            DayGan = t.DayGan,
+            TimeGan = t.TimeGan,
+            YearZhi = t.YearZhi,
+            MonthZhi = t.MonthZhi,
+            DayZhi = t.DayZhi,
+            TimeZhi = t.TimeZhi
+        };
     }
 }
