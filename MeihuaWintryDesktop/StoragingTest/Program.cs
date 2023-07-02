@@ -1,5 +1,5 @@
 ﻿using LiteDB;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Entities.Implementations;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities.Implementations;
 using StoragingTest;
 using YiJingFramework.PrimitiveTypes;
 

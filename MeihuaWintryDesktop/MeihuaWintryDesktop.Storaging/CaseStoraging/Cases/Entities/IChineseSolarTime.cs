@@ -10,17 +10,19 @@ using System.Threading.Tasks;
 using YiJingFramework.PrimitiveTypes;
 using YiJingFramework.PrimitiveTypes.Serialization;
 
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Entities;
+namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities;
 
-public interface IGregorianTime
+public interface IChineseSolarTime
 {
-    int? Year { get; }
+    Tiangan? YearGan { get; }
+    Dizhi? YearZhi { get; }
 
-    int? Month { get; }
+    Tiangan? MonthGan { get; }
+    Dizhi? MonthZhi { get; }
 
-    int? Day { get; }
+    Tiangan? DayGan { get; }
+    Dizhi? DayZhi { get; }
 
-    int? Hour { get; }
-
-    int? Minute { get; }
+    Tiangan? TimeGan { get; }
+    Dizhi? TimeZhi { get; }
 }

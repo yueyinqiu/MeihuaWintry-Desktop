@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using YiJingFramework.PrimitiveTypes;
 
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Entities.Implementations;
+namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities.Implementations;
 internal sealed class NamedGua : INamed<Gua>
 {
     public string? Name { get; set; }

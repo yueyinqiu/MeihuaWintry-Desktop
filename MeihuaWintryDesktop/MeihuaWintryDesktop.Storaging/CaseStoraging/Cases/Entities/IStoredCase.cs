@@ -1,7 +1,7 @@
 ﻿using LiteDB;
 using YiJingFramework.PrimitiveTypes;
 
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Entities;
+namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Entities;
 
 public interface IStoredCase
 {
