@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace MeihuaWintryDesktop.ViewModelling;
+namespace MeihuaWintryDesktop.ViewModelling.Popups;
 
 public sealed partial class MessagePopupViewModel : ObservableObject, IPopupViewModel
 {

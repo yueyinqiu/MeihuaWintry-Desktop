@@ -4,33 +4,51 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeihuaWintryDesktopWpf"
+             xmlns:popups="clr-namespace:MeihuaWintryDesktopWpf.Popups"
+             xmlns:editors="clr-namespace:MeihuaWintryDesktopWpf.Editors"
+             xmlns:sidebars="clr-namespace:MeihuaWintryDesktopWpf.Sidebars"
              xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:vmpopup="clr-namespace:MeihuaWintryDesktop.ViewModelling.Popups;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:vmeditor="clr-namespace:MeihuaWintryDesktop.ViewModelling.Editors;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:vmsidebar="clr-namespace:MeihuaWintryDesktop.ViewModelling.Sidebars;assembly=MeihuaWintryDesktop.ViewModelling"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ContentControl Content="{Binding Popup}" Panel.ZIndex="1">
+        <!-- 弹出框 -->
+        <ContentControl Content="{Binding Popup}" Panel.ZIndex="1" Visibility="Collapsed">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type vm:MessagePopupViewModel}">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-						   Background="#88000000">
-                        <local:MessagePopup></local:MessagePopup>
-                    </Grid>
+                <DataTemplate DataType="{x:Type vmpopup:MessagePopupViewModel}">
+                    <popups:MessagePopupView></popups:MessagePopupView>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
 
-        <TabControl ItemsSource="{Binding Editors}">
-            <TabControl.Resources>
-                <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
-                    <ToggleButton IsChecked="{Binding IsNotSaved}">保持开启</ToggleButton>
-                </DataTemplate>
-            </TabControl.Resources>
-            <TabControl.ItemTemplate>
-                <DataTemplate DataType="vm:IEditorViewModel">
-                    <TextBlock Text="{Binding Title}"></TextBlock>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-        </TabControl>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <!-- 侧边栏（搜索区） -->
+            <ContentControl Grid.Column="0" 
+                            Content="{Binding Sidebar}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vmsidebar:EmptySidebarViewModel}">
+                        <sidebars:EmptySidebarView></sidebars:EmptySidebarView>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+
+            <!-- 编辑区 -->
+            <ContentControl Grid.Column="1" 
+                            Content="{Binding Editor}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vmeditor:WelcomeEditorViewModel}">
+                        <editors:WelcomeEditorView></editors:WelcomeEditorView>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
     </Grid>
 </UserControl>

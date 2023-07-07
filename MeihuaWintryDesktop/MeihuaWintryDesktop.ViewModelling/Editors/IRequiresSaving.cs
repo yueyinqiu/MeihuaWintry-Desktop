@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace MeihuaWintryDesktop.ViewModelling;
-public interface IEditorViewModel
+namespace MeihuaWintryDesktop.ViewModelling.Editors;
+public interface IRequiresSaving
 {
+    public void Save();
 }

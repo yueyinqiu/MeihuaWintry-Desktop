@@ -1,15 +1,14 @@
-﻿<UserControl x:Class="MeihuaWintryDesktopWpf.MessagePopup"
+﻿<UserControl x:Class="MeihuaWintryDesktopWpf.Popups.MessagePopupView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MeihuaWintryDesktopWpf"
-             xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling.Popups;assembly=MeihuaWintryDesktop.ViewModelling"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:MessagePopupViewModel}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="600">
 
-    <Grid>
+    <Grid Background="#88000000">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
@@ -29,9 +28,11 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Content="{Binding Title}"
+                       d:Content="这是一个不咋长也不咋短的标题"
 					   VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <TextBox Grid.Row="1"
 						 Text="{Binding Message, Mode=OneWay}"
+                         d:Text="在这里得说点啥，但是说点啥好呢。反正总不能比标题短是吧？大概这么长？就这样吧。"
 						 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
 						 IsReadOnly="False"
 						 AcceptsReturn="True" TextWrapping="WrapWithOverflow"/>
@@ -44,10 +45,12 @@
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="1"
 							Content="{Binding YesText}"
+							d:Content="确定"
 							VerticalAlignment="Center" HorizontalAlignment="Center"
 							Command="{Binding ChooseYesCommand}"/>
                     <Button Grid.Column="2"
 							Content="{Binding NoText}"
+							d:Content="取消"
 							VerticalAlignment="Center" HorizontalAlignment="Center"
 							Command="{Binding ChooseNoCommand}"/>
                 </Grid>

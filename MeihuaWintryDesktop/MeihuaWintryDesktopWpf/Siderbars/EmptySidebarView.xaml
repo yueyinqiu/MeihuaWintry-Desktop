@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="MeihuaWintryDesktopWpf.Sidebars.EmptySidebarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling.Sidebars;assembly=MeihuaWintryDesktop.ViewModelling"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:EmptySidebarViewModel}"
+             d:DesignHeight="450" d:DesignWidth="200">
+
+    <TextBlock Background="AliceBlue">
+        <TextBlock Text="暂未打开卦例"></TextBlock>
+    </TextBlock>
+</UserControl>

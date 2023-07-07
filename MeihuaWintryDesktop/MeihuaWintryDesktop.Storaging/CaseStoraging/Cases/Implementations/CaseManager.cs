@@ -1,5 +1,6 @@
 ﻿using LiteDB;
 using LiteDB.Engine;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings;
 using System;
 using System.Diagnostics;
 using System.Linq.Expressions;

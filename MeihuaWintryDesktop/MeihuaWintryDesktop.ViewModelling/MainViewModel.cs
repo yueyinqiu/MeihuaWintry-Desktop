@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using System.Text;
+using MeihuaWintryDesktop.ViewModelling.Editors;
+using MeihuaWintryDesktop.ViewModelling.Sidebars;
 
 namespace MeihuaWintryDesktop.ViewModelling;
 
@@ -9,83 +9,33 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
 {
     // TODO: 把 setter 设为 private 。
     [ObservableProperty]
-    private bool isClosed = false;
+    private bool isClosed;
 
     // TODO: 把 setter 设为 private 。
     [ObservableProperty]
-    private IPopupViewModel? popup = null;
+    private IPopupViewModel? popup;
 
-    public ObservableCollection<IEditorViewModel> Editors { get; } = new() {
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-        new WelcomeViewModel(),
-    };
+    // TODO: 把 setter 设为 private 。
+    [ObservableProperty]
+    private IEditorViewModel? editor;
+
+    // TODO: 把 setter 设为 private 。
+    [ObservableProperty]
+    private ISidebarViewModel? sidebar;
+
+    public MainViewModel()
+    {
+        this.IsClosed = false;
+        this.Popup = null;
+        this.Editor = new WelcomeEditorViewModel();
+        this.Sidebar = new EmptySidebarViewModel();
+    }
 
     [RelayCommand]
     private void RequestClose()
     {
-        var notSaved = this.Editors.Where(e => e.IsNotSaved).Select(e => e.Title);
-        if (!notSaved.Any())
-        {
-            this.IsClosed = true;
-            return;
-        }
-
-        var message = new StringBuilder();
-        _ = message.AppendLine("以下编辑器中的内容可能还未保存，您确定要退出么？");
-        foreach(var line in notSaved)
-        {
-            _ = message.Append("\t-");
-            _ = message.AppendLine(line);
-        }
-        var popup = new MessagePopupViewModel(
-            "确定要退出么？",
-            message.ToString(),
-            "确定", "取消");
-        popup.Choosed += (sender, e) => {
-            if (this.Popup == sender)
-                this.Popup = null;
-            if (e.IsYes)
-                this.IsClosed = true;
-        };
-        this.Popup = popup;
-    }
-
-    [RelayCommand]
-    private void RequestEditorClose(IEditorViewModel editorViewModel)
-    {
-        if (!editorViewModel.IsNotSaved)
-        {
-            this.Editors.Remove(editorViewModel);
-            return;
-        }
-
-        var popup = new MessagePopupViewModel(
-            "确定要关闭么？",
-            "您当前编辑的内容可能还未保存，确定要关闭么？", 
-            "确定", "取消");
-        popup.Choosed += (sender, e) => {
-            if (this.Popup == sender)
-                this.Popup = null;
-            if (e.IsYes)
-                this.Editors.Remove(editorViewModel);
-        };
-        this.Popup = popup;
+        if(this.Editor is IRequiresSaving requiresSaving)
+            requiresSaving.Save();
+        this.IsClosed = true;
     }
 }
