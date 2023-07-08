@@ -28,14 +28,13 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
         this.IsClosed = false;
         this.Popup = null;
         this.Editor = new WelcomeEditorViewModel();
-        this.Sidebar = new EmptySidebarViewModel();
+        this.Sidebar = new HistorySidebarViewModel(this);
     }
 
     [RelayCommand]
     private void RequestClose()
     {
-        if(this.Editor is IRequiresSaving requiresSaving)
-            requiresSaving.Save();
+        // 如果要在关闭前做一些操作（甚至取消关闭），可以在这里添加。
         this.IsClosed = true;
     }
 }

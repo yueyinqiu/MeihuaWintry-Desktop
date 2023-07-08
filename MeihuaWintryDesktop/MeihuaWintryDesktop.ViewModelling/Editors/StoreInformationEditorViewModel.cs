@@ -3,23 +3,23 @@ using MeihuaWintryDesktop.Storaging.CaseStoraging;
 
 namespace MeihuaWintryDesktop.ViewModelling.Editors;
 
-public sealed partial class StoreInformationEditorViewModel : ObservableObject, IEditorViewModel, IRequiresSaving
+public sealed partial class StoreInformationEditorViewModel : ObservableObject, IEditorViewModel
 {
-    private readonly CaseStore caseStore;
+    private readonly CaseStore store;
 
-    public StoreInformationEditorViewModel(CaseStore caseStore)
+    internal StoreInformationEditorViewModel(CaseStore store)
     {
-        this.caseStore = caseStore;
-        this.Notes = caseStore.Settings.GetStoreNotes();
+        this.store = store;
+        this.Notes = store.Settings.GetStoreNotes();
     }
 
-    public string FileName => caseStore.File.Name;
+    public string FileName => store.File.Name;
 
     [ObservableProperty]
     private string notes;
 
-    public void Save()
+    partial void OnNotesChanging(string value)
     {
-        this.caseStore.Settings.SetStoreNotes(this.Notes);
+        this.store.Settings.SetStoreNotes(this.Notes);
     }
 }

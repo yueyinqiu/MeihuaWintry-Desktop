@@ -5,56 +5,29 @@ namespace MeihuaWintryDesktop.ViewModelling.Popups;
 
 public sealed partial class MessagePopupViewModel : ObservableObject, IPopupViewModel
 {
-    public sealed class MessagePopupButtonClickedEventArgs : EventArgs
+    public sealed class ChoiceMadeEventArgs : EventArgs
     {
         public required bool IsYes { get; init; }
-        public static MessagePopupButtonClickedEventArgs Yes { get; } = new() { IsYes = true };
-        public static MessagePopupButtonClickedEventArgs No { get; } = new() { IsYes = false };
+        public static ChoiceMadeEventArgs Yes { get; } = new() { IsYes = true };
+        public static ChoiceMadeEventArgs No { get; } = new() { IsYes = false };
     }
 
-    public MessagePopupViewModel(string title, string message, string yesText, string? noText = null)
-    {
-        this.Title = title;
-        this.Message = message;
-        this.YesText = yesText;
-        this.NoText = noText;
-    }
+    public required string Title { get; init; }
+    public required string Message { get; init; }
+    public required string YesText { get; init; }
+    public required string? NoText { get; init; }
 
-    public string Title { get; }
-    public string Message { get; }
-    public string YesText { get; }
-    public string? NoText { get; }
+    public event EventHandler<ChoiceMadeEventArgs>? ChoiceMade;
 
-    public event EventHandler<MessagePopupButtonClickedEventArgs>? Choosed;
-
-    // TODO: 把 setter 设为 private 。
-    [ObservableProperty]
-    private bool hasChoosed;
-
-    public void Reset()
-    {
-        this.HasChoosed = false;
-    }
-
-    [RelayCommand(CanExecute = nameof(CanChooseYesExecute))]
+    [RelayCommand]
     private void ChooseYes()
     {
-        this.HasChoosed = true;
-        Choosed?.Invoke(this, MessagePopupButtonClickedEventArgs.Yes);
-    }
-    public bool CanChooseYesExecute()
-    {
-        return !this.HasChoosed;
+        ChoiceMade?.Invoke(this, ChoiceMadeEventArgs.Yes);
     }
 
-    [RelayCommand(CanExecute = nameof(CanChooseNoExecute))]
+    [RelayCommand]
     private void ChooseNo()
     {
-        this.HasChoosed = true;
-        Choosed?.Invoke(this, MessagePopupButtonClickedEventArgs.No);
-    }
-    public bool CanChooseNoExecute()
-    {
-        return !this.HasChoosed && this.NoText is not null;
+        ChoiceMade?.Invoke(this, ChoiceMadeEventArgs.No);
     }
 }

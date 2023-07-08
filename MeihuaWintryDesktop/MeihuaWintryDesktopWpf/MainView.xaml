@@ -34,8 +34,8 @@
             <ContentControl Grid.Column="0" 
                             Content="{Binding Sidebar}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type vmsidebar:EmptySidebarViewModel}">
-                        <sidebars:EmptySidebarView></sidebars:EmptySidebarView>
+                    <DataTemplate DataType="{x:Type vmsidebar:HistorySidebarViewModel}">
+                        <sidebars:HistorySidebarView></sidebars:HistorySidebarView>
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
