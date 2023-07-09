@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using System.Diagnostics;
 using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
@@ -46,7 +45,6 @@ public sealed class CaseManager : ICaseManager
     public void UpdateCase(IStoredCaseWithId c)
     {
         var caseToUpdate = StoredCase.FromInterfaceType(c);
-        bool r = this.collection.Upsert(caseToUpdate);
-        Debug.Assert(r is true);
+        _ = this.collection.Upsert(caseToUpdate);
     }
 }

@@ -15,6 +15,7 @@ internal sealed class StoredCase : IStoredCaseWithId
         }
     }
 
+    [BsonId]
     public required ObjectId? CaseId { get; set; }
     ObjectId IStoredCaseWithId.CaseId => this.CaseId ?? ObjectId.Empty;
 

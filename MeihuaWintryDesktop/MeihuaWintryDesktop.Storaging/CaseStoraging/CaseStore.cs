@@ -7,6 +7,7 @@ using MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners.Implementations;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings.Implementations;
+using System.Globalization;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging;
 public sealed class CaseStore : IDisposable
@@ -15,14 +16,23 @@ public sealed class CaseStore : IDisposable
     public FileInfo File { get; }
     public CaseStore(FileInfo databaseFileInfo)
     {
-        this.database = new LiteDatabase(databaseFileInfo.FullName, new BsonMapper() {
+        var connectionString = new ConnectionString() {
+            Filename = databaseFileInfo.FullName,
+            Connection = ConnectionType.Direct,
+            Collation = new Collation(CultureInfo.InvariantCulture.LCID, CompareOptions.Ordinal)
+        };
+        var bsonMapper = new BsonMapper() {
             SerializeNullValues = true,
             EmptyStringToNull = false,
             EnumAsInteger = true,
             IncludeFields = false,
             IncludeNonPublic = false,
             TrimWhitespace = false
-        });
+        };
+
+        databaseFileInfo.Directory?.Create();
+        this.database = new LiteDatabase(connectionString, bsonMapper);
+
         this.File = databaseFileInfo;
         this.Cases = new CaseManager(this.database);
         this.Settings = new SettingsManager(this.database);

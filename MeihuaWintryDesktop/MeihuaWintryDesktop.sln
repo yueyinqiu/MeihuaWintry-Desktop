@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeihuaWintryDesktop.ViewMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeihuaWintryDesktopWpf", "MeihuaWintryDesktopWpf\MeihuaWintryDesktopWpf.csproj", "{9ED9795D-DC92-46FF-AB04-875FD3244DE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeihuaWintryDesktop.StoragingTests", "MeihuaWintryDesktop.StoragingTests\MeihuaWintryDesktop.StoragingTests.csproj", "{6A03717A-1859-496F-93E1-81EA15EC6F04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9ED9795D-DC92-46FF-AB04-875FD3244DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ED9795D-DC92-46FF-AB04-875FD3244DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ED9795D-DC92-46FF-AB04-875FD3244DE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A03717A-1859-496F-93E1-81EA15EC6F04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A03717A-1859-496F-93E1-81EA15EC6F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A03717A-1859-496F-93E1-81EA15EC6F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A03717A-1859-496F-93E1-81EA15EC6F04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
