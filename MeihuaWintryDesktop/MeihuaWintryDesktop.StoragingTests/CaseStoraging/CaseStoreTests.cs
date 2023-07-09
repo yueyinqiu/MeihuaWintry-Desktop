@@ -8,14 +8,24 @@ namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Tests;
 [TestClass()]
 public class CaseStoreTests
 {
-    private static CaseStore NewStore()
+    static CaseStoreTests()
     {
         var path = Path.GetFullPath("test stores", Environment.CurrentDirectory);
-        path = Path.GetFullPath(Path.GetRandomFileName(), path);
-        FileInfo file = new FileInfo(path);
-        if (file.Exists)
-            file.Delete();
-        return new CaseStore(file);
+        var dir = new DirectoryInfo(path);
+        if (dir.Exists)
+            dir.Delete(true);
+    }
+
+    private static CaseStore NewStore()
+    {
+        for(; ; )
+        {
+            var path = Path.GetFullPath("test stores", Environment.CurrentDirectory);
+            path = Path.GetFullPath(Path.GetRandomFileName(), path);
+            FileInfo file = new FileInfo(path);
+            if (!file.Exists)
+                return new CaseStore(file);
+        }
     }
 
     [TestMethod()]
@@ -122,5 +132,52 @@ public class CaseStoreTests
         var cases = store.Cases.ListCasesByLastEdit().ToArray();
         Assert.AreEqual(5, cases.Length);
         Assert.AreEqual("", cases[3].OwnerDescription);
+    }
+
+    [TestMethod()]
+    public void AnnotationTest()
+    {
+        using var store = NewStore();
+
+        store.Annotations[Gua.Parse("")] = "";
+        store.Annotations[Gua.Parse("1111")] = "1111";
+        store.Annotations[Gua.Parse("001")] = "GUA001";
+
+        var all = store.Annotations.Enumerate().ToDictionary(x => x.gua, x => x.annotation);
+        Assert.AreEqual(3, all.Count);
+        Assert.AreEqual("", all[Gua.Parse("")]);
+        Assert.AreEqual("GUA001", all[Gua.Parse("001")]);
+        Assert.AreEqual(all[Gua.Parse("1111")], store.Annotations[Gua.Parse("1111")]);
+        Assert.AreEqual(null, store.Annotations[Gua.Parse("111111111111")]);
+
+        store.Annotations[Gua.Parse("001")] = null;
+
+        all = store.Annotations.Enumerate().ToDictionary(x => x.gua, x => x.annotation);
+        Assert.AreEqual(2, all.Count);
+        Assert.AreEqual(null, store.Annotations[Gua.Parse("001")]);
+    }
+
+    [TestMethod()]
+    public void SettingsTest()
+    {
+        using var store = NewStore();
+
+        store.Settings.StoreNotes = "ABC";
+        Assert.AreEqual("ABC", store.Settings.StoreNotes);
+
+        store.Settings.StoreNotes = null;
+        Assert.AreEqual("", store.Settings.StoreNotes);
+    }
+
+    [TestMethod()]
+    public void DivinerTest()
+    {
+        using var store = NewStore();
+
+        store.Diviners.DivinerScript = "ABC";
+        Assert.AreEqual("ABC", store.Diviners.DivinerScript);
+
+        store.Diviners.DivinerScript = null;
+        Assert.AreEqual("", store.Diviners.DivinerScript);
     }
 }
