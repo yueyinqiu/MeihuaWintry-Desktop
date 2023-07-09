@@ -4,10 +4,10 @@ using YiJingFramework.PrimitiveTypes;
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners;
 public interface IDivinerManager
 {
-    string CustomDivinerCode { get; set; }
+    string DivinerScript { get; set; }
 
-    byte[] GetReference(ObjectId id);
-    ObjectId AddReference(byte[] bytes);
+    ObjectId AddReference(byte[] content);
     void RemoveReference(ObjectId id);
-    IEnumerable<ObjectId> EnumerateReferences();
+    IEnumerable<(ObjectId id, byte[] content)> EnumerateReferences();
+    IEnumerable<ObjectId> EnumerateReferenceIds();
 }

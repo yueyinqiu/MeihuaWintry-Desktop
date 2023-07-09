@@ -6,23 +6,23 @@ using YiJingFramework.PrimitiveTypes;
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Settings.Implementations;
 public sealed class SettingsManager : ISettingsManager
 {
-    private readonly ILiteCollection<Settings> collection;
+    private readonly ILiteCollection<StoredSettings> collection;
     internal SettingsManager(LiteDatabase database)
     {
-        this.collection = database.GetCollection<Settings>(CollectionNames.Settings);
+        this.collection = database.GetCollection<StoredSettings>(CollectionNames.Settings);
     }
 
-    private Settings GetSettings()
+    private StoredSettings GetSettings()
     {
-        var result = this.collection.FindById(Settings.PossibleId);
-        return result ?? new Settings() {
+        var result = this.collection.FindById(StoredSettings.PossibleId);
+        return result ?? new StoredSettings() {
             Notes = ""
         };
     }
 
-    private void SaveSettings(Settings settings)
+    private void SaveSettings(StoredSettings settings)
     {
-        Debug.Assert(settings.Id == Settings.PossibleId);
+        Debug.Assert(settings.Id == StoredSettings.PossibleId);
         this.collection.Upsert(settings);
     }
 

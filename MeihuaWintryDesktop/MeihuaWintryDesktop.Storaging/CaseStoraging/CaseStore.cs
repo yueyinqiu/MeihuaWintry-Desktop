@@ -1,9 +1,12 @@
 ﻿using LiteDB;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Annotations;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Annotations.Implementations;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners.Implementations;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings.Implementations;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging;
 public sealed class CaseStore : IDisposable
@@ -22,6 +25,9 @@ public sealed class CaseStore : IDisposable
         });
         this.File = databaseFileInfo;
         this.Cases = new CaseManager(this.database);
+        this.Settings = new SettingsManager(this.database);
+        this.Annotations = new AnnotationManager(this.database);
+        this.Diviners = new DivinerManager(this.database);
     }
     public void Dispose()
     {
@@ -29,7 +35,7 @@ public sealed class CaseStore : IDisposable
     }
 
     public ICaseManager Cases { get; }
-    public ISettingsManager Settings => throw new NotImplementedException();
-    public IAnnotationManager Annotations => throw new NotImplementedException();
-    public IDivinerManager Diviners => throw new NotImplementedException();
+    public ISettingsManager Settings { get; }
+    public IAnnotationManager Annotations { get; }
+    public IDivinerManager Diviners { get; }
 }

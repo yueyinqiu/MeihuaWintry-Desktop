@@ -4,7 +4,7 @@ using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Settings.Implementations;
 
-internal sealed class Settings
+internal sealed class StoredSettings
 {
     public static int PossibleId => 1;
 
