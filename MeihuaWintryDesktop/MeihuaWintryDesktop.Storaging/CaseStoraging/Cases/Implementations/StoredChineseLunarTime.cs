@@ -3,7 +3,7 @@ using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
-internal sealed class ChineseLunarTime : IChineseLunarTime
+internal sealed class StoredChineseLunarTime : IStoredChineseLunarTime
 {
     public required Tiangan? YearGan { get; set; }
     public required Dizhi? YearZhi { get; set; }
@@ -38,7 +38,7 @@ internal sealed class ChineseLunarTime : IChineseLunarTime
     }
 
 
-    public static ChineseLunarTime Empty
+    public static StoredChineseLunarTime Empty
     {
         get
         {
@@ -53,9 +53,9 @@ internal sealed class ChineseLunarTime : IChineseLunarTime
         }
     }
 
-    public static ChineseLunarTime FromInterfaceType(IChineseLunarTime t)
+    public static StoredChineseLunarTime FromInterfaceType(IStoredChineseLunarTime t)
     {
-        return new ChineseLunarTime() {
+        return new StoredChineseLunarTime() {
             YearGan = t.YearGan,
             TimeGan = t.TimeGan,
             YearZhi = t.YearZhi,

@@ -8,23 +8,23 @@ using System.Xml.Linq;
 using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
-internal sealed class NamedStruct<T> : INamed<T> where T : struct
+internal sealed class StoredNumber : IStoredNumber
 {
     public required string? Name { get; set; }
-    string INamed<T>.Name => this.Name ?? "";
+    string IStoredNumber.Name => this.Name ?? "";
 
-    public required T Value { get; set; }
+    public required int Number { get; set; }
 
     public override string ToString()
     {
-        return $"{this.Name}: {this.Value}";
+        return $"{this.Name}: {this.Number}";
     }
 
-    public static NamedStruct<T> FromInterfaceType(INamed<T> t)
+    public static StoredNumber FromInterfaceType(IStoredNumber n)
     {
-        return new NamedStruct<T>() {
-            Name = t.Name,
-            Value = t.Value
+        return new StoredNumber() {
+            Name = n.Name,
+            Number = n.Number
         };
     }
 }

@@ -12,7 +12,7 @@ using YiJingFramework.PrimitiveTypes.Serialization;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 
-public interface IChineseSolarTime
+public interface IStoredChineseSolarTime
 {
     Tiangan? YearGan { get; }
     Dizhi? YearZhi { get; }

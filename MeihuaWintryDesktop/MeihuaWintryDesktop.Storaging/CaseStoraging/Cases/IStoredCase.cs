@@ -10,12 +10,12 @@ public interface IStoredCase
     string Owner { get; }
     string OwnerDescription { get; }
 
-    IGregorianTime GregorianTime { get; }
-    IChineseSolarTime ChineseSolarTime { get; }
-    IChineseLunarTime ChineseLunarTime { get; }
+    IStoredGregorianTime GregorianTime { get; }
+    IStoredChineseSolarTime ChineseSolarTime { get; }
+    IStoredChineseLunarTime ChineseLunarTime { get; }
 
-    IEnumerable<INamed<int>> Numbers { get; }
-    IEnumerable<INamed<Gua>> Guas { get; }
+    IEnumerable<IStoredNumber> Numbers { get; }
+    IEnumerable<IStoredGua> Guas { get; }
 
     string Notes { get; }
     IEnumerable<string> Tags { get; }

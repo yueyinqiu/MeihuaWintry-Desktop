@@ -24,8 +24,7 @@ public sealed class CaseManager : ICaseManager
             (x) => x.ToBytes(),
             (b) => Gua.FromBytes(b));
 
-        var collection = database.GetCollection<StoredCase>();
-        this.collection = collection;
+        this.collection = database.GetCollection<StoredCase>(CollectionNames.Cases);
     }
 
     public IEnumerable<IStoredCaseWithId> ListCasesByLastEdit()

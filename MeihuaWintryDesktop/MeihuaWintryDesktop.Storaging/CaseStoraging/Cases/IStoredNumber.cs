@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
-public interface INamed<T>
+public interface IStoredNumber
 {
     string Name { get; }
-    T Value { get; }
+    int Number { get; }
 }

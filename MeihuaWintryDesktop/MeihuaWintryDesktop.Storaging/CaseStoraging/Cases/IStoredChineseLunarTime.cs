@@ -2,7 +2,7 @@
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 
-public interface IChineseLunarTime
+public interface IStoredChineseLunarTime
 {
     Tiangan? YearGan { get; }
     Dizhi? YearZhi { get; }

@@ -12,7 +12,7 @@ using YiJingFramework.PrimitiveTypes.Serialization;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 
-public interface IGregorianTime
+public interface IStoredGregorianTime
 {
     int? Year { get; }
 

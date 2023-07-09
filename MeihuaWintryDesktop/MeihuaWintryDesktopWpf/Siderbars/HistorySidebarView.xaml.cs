@@ -7,6 +7,6 @@ public partial class HistorySidebarView : UserControl
 {
     public HistorySidebarView()
     {
-        InitializeComponent();
+        this.InitializeComponent();
     }
 }

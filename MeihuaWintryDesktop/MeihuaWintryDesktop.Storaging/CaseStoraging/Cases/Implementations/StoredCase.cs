@@ -32,17 +32,17 @@ internal sealed class StoredCase : IStoredCaseWithId
     public required string? OwnerDescription { get; set; }
     string IStoredCase.OwnerDescription => this.OwnerDescription ?? "";
 
-    public required GregorianTime? GregorianTime { get; set; }
-    IGregorianTime IStoredCase.GregorianTime => this.GregorianTime ?? GregorianTime.Empty;
-    public required ChineseSolarTime? ChineseSolarTime { get; set; }
-    IChineseSolarTime IStoredCase.ChineseSolarTime => this.ChineseSolarTime ?? ChineseSolarTime.Empty;
-    public required ChineseLunarTime? ChineseLunarTime { get; set; }
-    IChineseLunarTime IStoredCase.ChineseLunarTime => this.ChineseLunarTime ?? ChineseLunarTime.Empty;
+    public required StoredGregorianTime? GregorianTime { get; set; }
+    IStoredGregorianTime IStoredCase.GregorianTime => this.GregorianTime ?? StoredGregorianTime.Empty;
+    public required StoredChineseSolarTime? ChineseSolarTime { get; set; }
+    IStoredChineseSolarTime IStoredCase.ChineseSolarTime => this.ChineseSolarTime ?? StoredChineseSolarTime.Empty;
+    public required StoredChineseLunarTime? ChineseLunarTime { get; set; }
+    IStoredChineseLunarTime IStoredCase.ChineseLunarTime => this.ChineseLunarTime ?? StoredChineseLunarTime.Empty;
 
-    public required NamedStruct<int>?[]? Numbers { get; set; }
-    IEnumerable<INamed<int>> IStoredCase.Numbers => SelectNotNull(this.Numbers);
-    public required NamedGua?[]? Guas { get; set; }
-    IEnumerable<INamed<Gua>> IStoredCase.Guas => SelectNotNull(this.Guas);
+    public required StoredNumber?[]? Numbers { get; set; }
+    IEnumerable<IStoredNumber> IStoredCase.Numbers => SelectNotNull(this.Numbers);
+    public required StoredGua?[]? Guas { get; set; }
+    IEnumerable<IStoredGua> IStoredCase.Guas => SelectNotNull(this.Guas);
 
     public required string? Notes { get; set; }
     string IStoredCase.Notes => this.Notes ?? "";
@@ -54,13 +54,13 @@ internal sealed class StoredCase : IStoredCaseWithId
     {
         return new StoredCase() {
             CaseId = null,
-            ChineseLunarTime = ChineseLunarTime.FromInterfaceType(c.ChineseLunarTime),
-            ChineseSolarTime = ChineseSolarTime.FromInterfaceType(c.ChineseSolarTime),
-            GregorianTime = GregorianTime.FromInterfaceType(c.GregorianTime),
-            Guas = c.Guas.Select(NamedGua.FromInterfaceType).ToArray(),
+            ChineseLunarTime = StoredChineseLunarTime.FromInterfaceType(c.ChineseLunarTime),
+            ChineseSolarTime = StoredChineseSolarTime.FromInterfaceType(c.ChineseSolarTime),
+            GregorianTime = StoredGregorianTime.FromInterfaceType(c.GregorianTime),
+            Guas = c.Guas.Select(StoredGua.FromInterfaceType).ToArray(),
             LastEdit = lastEdit ?? DateTime.Now,
             Notes = c.Notes,
-            Numbers = c.Numbers.Select(NamedStruct<int>.FromInterfaceType).ToArray(),
+            Numbers = c.Numbers.Select(StoredNumber.FromInterfaceType).ToArray(),
             Owner = c.Owner,
             OwnerDescription = c.OwnerDescription,
             Tags = c.Tags.ToArray(),

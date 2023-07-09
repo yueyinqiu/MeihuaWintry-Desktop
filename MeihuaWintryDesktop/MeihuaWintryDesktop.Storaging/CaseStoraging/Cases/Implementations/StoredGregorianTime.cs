@@ -3,7 +3,7 @@ using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
-internal sealed class GregorianTime : IGregorianTime
+internal sealed class StoredGregorianTime : IStoredGregorianTime
 {
     public required int? Year { get; set; }
     public required int? Month { get; set; }
@@ -23,7 +23,7 @@ internal sealed class GregorianTime : IGregorianTime
     }
 
 
-    public static GregorianTime Empty
+    public static StoredGregorianTime Empty
     {
         get
         {
@@ -37,9 +37,9 @@ internal sealed class GregorianTime : IGregorianTime
         }
     }
 
-    public static GregorianTime FromInterfaceType(IGregorianTime t)
+    public static StoredGregorianTime FromInterfaceType(IStoredGregorianTime t)
     {
-        return new GregorianTime() {
+        return new StoredGregorianTime() {
             Month = t.Month,
             Day = t.Day,
             Year = t.Year,

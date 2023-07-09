@@ -3,7 +3,7 @@ using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
-internal sealed class ChineseSolarTime : IChineseSolarTime
+internal sealed class StoredChineseSolarTime : IStoredChineseSolarTime
 {
     public required Tiangan? YearGan { get; set; }
     public required Dizhi? YearZhi { get; set; }
@@ -32,7 +32,7 @@ internal sealed class ChineseSolarTime : IChineseSolarTime
             $"{ToString(this.TimeGan)}{ToString(this.TimeZhi)}时";
     }
 
-    public static ChineseSolarTime Empty
+    public static StoredChineseSolarTime Empty
     {
         get
         {
@@ -49,9 +49,9 @@ internal sealed class ChineseSolarTime : IChineseSolarTime
         }
     }
 
-    public static ChineseSolarTime FromInterfaceType(IChineseSolarTime t)
+    public static StoredChineseSolarTime FromInterfaceType(IStoredChineseSolarTime t)
     {
-        return new ChineseSolarTime() {
+        return new StoredChineseSolarTime() {
             YearGan = t.YearGan,
             MonthGan = t.MonthGan,
             DayGan = t.DayGan,

@@ -1,8 +1,8 @@
 ﻿using LiteDB;
+using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Settings;
 public interface ISettingsManager
 {
-    public string GetStoreNotes();
-    public void SetStoreNotes(string s);
+    string StoreNotes { get; set; }
 }
