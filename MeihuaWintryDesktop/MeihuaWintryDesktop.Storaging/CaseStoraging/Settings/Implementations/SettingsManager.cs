@@ -1,7 +1,5 @@
 ﻿using LiteDB;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Annotations.Implementations;
 using System.Diagnostics;
-using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Settings.Implementations;
 public sealed class SettingsManager : ISettingsManager
@@ -30,13 +28,13 @@ public sealed class SettingsManager : ISettingsManager
     {
         get
         {
-            return GetSettings().Notes ?? "";
+            return this.GetSettings().Notes ?? "";
         }
         set
         {
-            var settings = GetSettings();
+            var settings = this.GetSettings();
             settings.Notes = value;
-            SaveSettings(settings);
+            this.SaveSettings(settings);
         }
     }
 }

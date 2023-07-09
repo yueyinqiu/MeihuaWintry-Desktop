@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MeihuaWintryDesktop.Storaging.CaseStoraging;
+﻿using MeihuaWintryDesktop.Storaging.CaseStoraging;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 

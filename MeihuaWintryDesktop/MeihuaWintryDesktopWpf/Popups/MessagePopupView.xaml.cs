@@ -6,6 +6,6 @@ public partial class MessagePopupView : UserControl
 {
     public MessagePopupView()
     {
-        InitializeComponent();
+        this.InitializeComponent();
     }
 }

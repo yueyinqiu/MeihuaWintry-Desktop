@@ -1,10 +1,4 @@
-﻿using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings;
-using MeihuaWintryDesktop.Storaging.GlobalConfiguring.TrustedStores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MeihuaWintryDesktop.Storaging.GlobalConfiguring.TrustedStores;
 
 namespace MeihuaWintryDesktop.Storaging.GlobalConfiguring;
 public sealed class GlobalConfiguration

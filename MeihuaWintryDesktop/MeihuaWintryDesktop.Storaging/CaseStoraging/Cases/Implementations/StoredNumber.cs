@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using YiJingFramework.PrimitiveTypes;
-
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
+﻿namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 internal sealed class StoredNumber : IStoredNumber
 {
     public required string? Name { get; set; }

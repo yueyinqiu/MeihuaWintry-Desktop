@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using YiJingFramework.PrimitiveTypes;
-
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
+﻿namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
 internal sealed class StoredGregorianTime : IStoredGregorianTime
 {

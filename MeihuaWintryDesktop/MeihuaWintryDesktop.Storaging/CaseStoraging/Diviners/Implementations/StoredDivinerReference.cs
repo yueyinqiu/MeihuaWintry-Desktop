@@ -1,6 +1,4 @@
 ﻿using LiteDB;
-using System.Diagnostics;
-using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners.Implementations;
 

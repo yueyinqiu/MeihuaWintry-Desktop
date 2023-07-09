@@ -1,6 +1,5 @@
 ﻿using LiteDB;
 using System.Diagnostics;
-using System.Reflection;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners.Implementations;
 public sealed class DivinerManager : IDivinerManager
@@ -58,7 +57,7 @@ public sealed class DivinerManager : IDivinerManager
     {
         foreach (var r in this.referenceCollection.FindAll())
         {
-            if(r.Content is not null)
+            if (r.Content is not null)
             {
                 Debug.Assert(r.ReferenceId is not null);
                 yield return (r.ReferenceId, r.Content);

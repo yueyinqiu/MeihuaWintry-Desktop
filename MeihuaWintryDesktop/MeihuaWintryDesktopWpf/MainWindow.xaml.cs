@@ -7,13 +7,13 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
-        InitializeComponent();
+        this.InitializeComponent();
 
         this.Closing += this.ThisClosing;
         this.mainView.Closed += (_, _) => this.InvokeClose();
     }
 
-    bool isCloseRequired = false;
+    private bool isCloseRequired = false;
     private void ThisClosing(object sender, CancelEventArgs e)
     {
         if (this.isCloseRequired)

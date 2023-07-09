@@ -1,9 +1,5 @@
 ﻿using LiteDB;
-using LiteDB.Engine;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings;
-using System;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
@@ -14,13 +10,13 @@ public sealed class CaseManager : ICaseManager
     internal CaseManager(LiteDatabase database)
     {
         this.mapper = database.Mapper;
-        mapper.RegisterType<Tiangan>(
+        this.mapper.RegisterType<Tiangan>(
             (x) => x.Index,
             (b) => new(b));
-        mapper.RegisterType<Dizhi>(
+        this.mapper.RegisterType<Dizhi>(
             (x) => x.Index,
             (b) => new(b));
-        mapper.RegisterType<Gua>(
+        this.mapper.RegisterType<Gua>(
             (x) => x.ToBytes(),
             (b) => Gua.FromBytes(b));
 
@@ -29,20 +25,20 @@ public sealed class CaseManager : ICaseManager
 
     public IEnumerable<IStoredCaseWithId> ListCasesByLastEdit()
     {
-        return collection.Query()
+        return this.collection.Query()
             .OrderByDescending(s => s.LastEdit)
             .ToEnumerable();
     }
 
     public IStoredCaseWithId? GetCase(ObjectId id)
     {
-        return collection.FindById(id);
+        return this.collection.FindById(id);
     }
 
     public IStoredCaseWithId InsertCase(IStoredCase c)
     {
         var caseToInsert = StoredCase.FromInterfaceTypeNoId(c);
-        var id = collection.Insert(caseToInsert);
+        var id = this.collection.Insert(caseToInsert);
         caseToInsert.CaseId = id;
         return caseToInsert;
     }
@@ -50,7 +46,7 @@ public sealed class CaseManager : ICaseManager
     public void UpdateCase(IStoredCaseWithId c)
     {
         var caseToUpdate = StoredCase.FromInterfaceType(c);
-        bool r = collection.Upsert(caseToUpdate);
+        bool r = this.collection.Upsert(caseToUpdate);
         Debug.Assert(r is true);
     }
 }

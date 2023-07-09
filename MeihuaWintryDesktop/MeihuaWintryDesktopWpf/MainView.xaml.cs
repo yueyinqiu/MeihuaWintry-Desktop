@@ -9,7 +9,7 @@ public partial class MainView : UserControl
 {
     public MainView()
     {
-        InitializeComponent();
+        this.InitializeComponent();
 
         this.DataContextChanged += (_, _) => {
             this.ViewModel.PropertyChanged += (sender, e) => {

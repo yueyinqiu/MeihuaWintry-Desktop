@@ -6,6 +6,6 @@ public partial class WelcomeEditorView : UserControl
 {
     public WelcomeEditorView()
     {
-        InitializeComponent();
+        this.InitializeComponent();
     }
 }

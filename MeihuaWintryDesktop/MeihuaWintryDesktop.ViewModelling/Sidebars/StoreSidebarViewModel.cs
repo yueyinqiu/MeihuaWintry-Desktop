@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MeihuaWintryDesktop.Storaging.CaseStoraging;
+﻿using MeihuaWintryDesktop.Storaging.CaseStoraging;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
@@ -9,7 +8,7 @@ public sealed partial class StoreSidebarViewModel : SidebarViewModelBase, ISideb
 
     protected override CaseStore? GetStoreIfExists()
     {
-        return store;
+        return this.store;
     }
 
     internal StoreSidebarViewModel(MainViewModel mainViewModel, CaseStore store) : base(mainViewModel)

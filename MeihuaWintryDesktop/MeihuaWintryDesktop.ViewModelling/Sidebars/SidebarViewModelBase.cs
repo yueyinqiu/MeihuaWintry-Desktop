@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MeihuaWintryDesktop.Storaging.CaseStoraging;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 using MeihuaWintryDesktop.ViewModelling.Editors;
 using MeihuaWintryDesktop.ViewModelling.Popups;
 

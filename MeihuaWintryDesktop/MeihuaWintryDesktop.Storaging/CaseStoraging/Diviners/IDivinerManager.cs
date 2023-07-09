@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners;
 public interface IDivinerManager
