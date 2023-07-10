@@ -8,6 +8,7 @@ using MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners.Implementations;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Settings.Implementations;
 using System.Globalization;
+using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging;
 public sealed class CaseStore : IDisposable
@@ -29,6 +30,16 @@ public sealed class CaseStore : IDisposable
             IncludeNonPublic = false,
             TrimWhitespace = false
         };
+
+        bsonMapper.RegisterType<Tiangan>(
+            (x) => x.Index,
+            (b) => new(b));
+        bsonMapper.RegisterType<Dizhi>(
+            (x) => x.Index,
+            (b) => new(b));
+        bsonMapper.RegisterType<Gua>(
+            (x) => x.ToBytes(),
+            (b) => Gua.FromBytes(b));
 
         databaseFileInfo.Directory?.Create();
         this.database = new LiteDatabase(connectionString, bsonMapper);

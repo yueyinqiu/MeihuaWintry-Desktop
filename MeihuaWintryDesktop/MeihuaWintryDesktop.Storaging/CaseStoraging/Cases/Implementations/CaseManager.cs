@@ -1,25 +1,14 @@
 ﻿using LiteDB;
-using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 public sealed class CaseManager : ICaseManager
 {
-    private readonly BsonMapper mapper;
     private readonly ILiteCollection<StoredCase> collection;
     internal CaseManager(LiteDatabase database)
     {
-        this.mapper = database.Mapper;
-        this.mapper.RegisterType<Tiangan>(
-            (x) => x.Index,
-            (b) => new(b));
-        this.mapper.RegisterType<Dizhi>(
-            (x) => x.Index,
-            (b) => new(b));
-        this.mapper.RegisterType<Gua>(
-            (x) => x.ToBytes(),
-            (b) => Gua.FromBytes(b));
-
         this.collection = database.GetCollection<StoredCase>(CollectionNames.Cases);
+
+        this.collection.EnsureIndex(x => x.LastEdit);
     }
 
     public IEnumerable<IStoredCaseWithId> ListCasesByLastEdit()
@@ -29,7 +18,7 @@ public sealed class CaseManager : ICaseManager
             .ToEnumerable();
     }
 
-    public IStoredCaseWithId? GetCase(ObjectId id)
+    public IStoredCaseWithId? GetCase(ObjectId? id)
     {
         return this.collection.FindById(id);
     }

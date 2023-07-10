@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 
@@ -17,17 +18,32 @@ internal sealed class StoredCase : IStoredCaseWithId
 
     [BsonId]
     public required ObjectId? CaseId { get; set; }
-    ObjectId IStoredCaseWithId.CaseId => this.CaseId ?? ObjectId.Empty;
 
     public required DateTime LastEdit { get; set; }
 
-    public required string? Title { get; set; }
-    string IStoredCase.Title => this.Title ?? "";
+    private string title;
+    public required string Title
+    {
+        get => this.title;
+        [MemberNotNull(nameof(title))]
+        set => this.title = value ?? "";
+    }
 
-    public required string? Owner { get; set; }
-    string IStoredCase.Owner => this.Owner ?? "";
-    public required string? OwnerDescription { get; set; }
-    string IStoredCase.OwnerDescription => this.OwnerDescription ?? "";
+    private string owner;
+    public required string Owner
+    {
+        get => this.owner;
+        [MemberNotNull(nameof(owner))]
+        set => this.owner = value ?? "";
+    }
+
+    private string ownerDescription;
+    public required string OwnerDescription
+    {
+        get => this.ownerDescription;
+        [MemberNotNull(nameof(ownerDescription))]
+        set => this.ownerDescription = value ?? "";
+    }
 
     public required StoredGregorianTime? GregorianTime { get; set; }
     IStoredGregorianTime IStoredCase.GregorianTime => this.GregorianTime ?? StoredGregorianTime.Empty;
@@ -41,8 +57,13 @@ internal sealed class StoredCase : IStoredCaseWithId
     public required StoredGua?[]? Guas { get; set; }
     IEnumerable<IStoredGua> IStoredCase.Guas => SelectNotNull(this.Guas);
 
-    public required string? Notes { get; set; }
-    string IStoredCase.Notes => this.Notes ?? "";
+    private string notes;
+    public required string Notes
+    {
+        get => this.notes;
+        [MemberNotNull(nameof(notes))]
+        set => this.notes = value ?? "";
+    }
     public required string?[]? Tags { get; set; }
     IEnumerable<string> IStoredCase.Tags => SelectNotNull(this.Tags);
 
@@ -50,7 +71,7 @@ internal sealed class StoredCase : IStoredCaseWithId
         IStoredCase c, DateTime? lastEdit = null)
     {
         return new StoredCase() {
-            CaseId = null,
+            CaseId = ObjectId.Empty,
             ChineseLunarTime = StoredChineseLunarTime.FromInterfaceType(c.ChineseLunarTime),
             ChineseSolarTime = StoredChineseSolarTime.FromInterfaceType(c.ChineseSolarTime),
             GregorianTime = StoredGregorianTime.FromInterfaceType(c.GregorianTime),

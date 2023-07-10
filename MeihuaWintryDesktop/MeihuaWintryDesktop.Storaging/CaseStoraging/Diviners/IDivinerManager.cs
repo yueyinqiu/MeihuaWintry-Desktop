@@ -1,6 +1,4 @@
-﻿using LiteDB;
-
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners;
+﻿namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners;
 public interface IDivinerManager
 {
     string GetScript(DivinerScriptCategory category);

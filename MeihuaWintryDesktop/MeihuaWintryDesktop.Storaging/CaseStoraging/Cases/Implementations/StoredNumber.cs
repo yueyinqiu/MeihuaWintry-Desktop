@@ -1,8 +1,15 @@
-﻿namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases.Implementations;
 internal sealed class StoredNumber : IStoredNumber
 {
-    public required string? Name { get; set; }
-    string IStoredNumber.Name => this.Name ?? "";
+    private string name;
+    public required string Name
+    {
+        get => this.name;
+        [MemberNotNull(nameof(name))]
+        set => this.name = value ?? "";
+    }
 
     public required int Number { get; set; }
 

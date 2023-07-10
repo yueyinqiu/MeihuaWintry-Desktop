@@ -7,29 +7,24 @@ public sealed class AccessHistoryManager : IAccessHistoryManager
     internal AccessHistoryManager(LiteDatabase database)
     {
         this.collection = database.GetCollection<StoredAccessHistory>(CollectionNames.AccessHistorys);
+
+        this.collection.EnsureIndex(x => x.LastAccess);
     }
 
-    public IEnumerable<IStoredAccessHistory> ListHistorys()
+    public IEnumerable<IStoredAccessHistory> ListHistorysByLastAccess()
     {
-        return this.collection.FindAll();
+        return this.collection.Query()
+            .OrderByDescending(x => x.LastAccess)
+            .ToEnumerable();
     }
 
     public void SetHistory(IStoredAccessHistory history)
     {
-        var updateResult = this.collection.UpdateMany(x => new StoredAccessHistory() {
-            HistoryId = x.HistoryId,
-            File = x.File,
-            IsTrusted = history.IsTrusted,
-            LastAccess = history.LastAccess
-        }, x => x.File == history.File.FullName);
-        if (updateResult is 0)
-        {
-            this.collection.Insert(StoredAccessHistory.FromInterfaceType(history));
-        }
+        _ = this.collection.Upsert(StoredAccessHistory.FromInterfaceType(history));
     }
 
     public IStoredAccessHistory? TryGetHistory(FileInfo store)
     {
-        return this.collection.FindOne(x => x.File == store.FullName);
+        return this.collection.FindById(store.FullName);
     }
 }

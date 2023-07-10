@@ -23,6 +23,10 @@ public sealed class GlobalConfiguration : IDisposable
             TrimWhitespace = false
         };
 
+        bsonMapper.RegisterType<FileInfo>(
+            f => f.FullName,
+            b => new FileInfo(b));
+
         databaseFileInfo.Directory?.Create();
         this.database = new LiteDatabase(connectionString, bsonMapper);
 

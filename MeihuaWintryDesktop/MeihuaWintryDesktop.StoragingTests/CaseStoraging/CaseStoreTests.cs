@@ -1,5 +1,5 @@
 ﻿using LiteDB;
-using MeihuaWintryDesktop.StoragingTests.CaseStoraging;
+using MeihuaWintryDesktop.StoragingTests.CaseStoraging.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YiJingFramework.PrimitiveTypes;
 
@@ -12,13 +12,17 @@ public class CaseStoreTests
     {
         var path = Path.GetFullPath("test stores", Environment.CurrentDirectory);
         var dir = new DirectoryInfo(path);
-        if (dir.Exists)
-            dir.Delete(true);
+        try
+        {
+            if (dir.Exists)
+                dir.Delete(true);
+        }
+        catch { }
     }
 
     private static CaseStore NewStore()
     {
-        for(; ; )
+        for (; ; )
         {
             var path = Path.GetFullPath("test stores", Environment.CurrentDirectory);
             path = Path.GetFullPath(Path.GetRandomFileName(), path);
@@ -34,8 +38,6 @@ public class CaseStoreTests
         var path = Path.GetFullPath("test stores", Environment.CurrentDirectory);
         path = Path.GetFullPath("hello world.mhw", path);
         FileInfo file = new FileInfo(path);
-        if (file.Exists)
-            file.Delete();
 
         using var store = new CaseStore(file);
         Assert.AreEqual(file.FullName, store.File.FullName);
