@@ -174,10 +174,11 @@ public class CaseStoreTests
     {
         using var store = NewStore();
 
-        store.Diviners.DivinerScript = "ABC";
-        Assert.AreEqual("ABC", store.Diviners.DivinerScript);
+        store.Diviners.SetScript(Diviners.DivinerScriptCategory.DefaultScript, "ABC");
+        Assert.AreEqual("ABC", store.Diviners.GetScript(Diviners.DivinerScriptCategory.DefaultScript));
+        Assert.AreEqual("", store.Diviners.GetScript(Diviners.DivinerScriptCategory.PreScript));
 
-        store.Diviners.DivinerScript = null;
-        Assert.AreEqual("", store.Diviners.DivinerScript);
+        store.Diviners.SetScript(Diviners.DivinerScriptCategory.DefaultScript, null);
+        Assert.AreEqual("", store.Diviners.GetScript(Diviners.DivinerScriptCategory.DefaultScript));
     }
 }
