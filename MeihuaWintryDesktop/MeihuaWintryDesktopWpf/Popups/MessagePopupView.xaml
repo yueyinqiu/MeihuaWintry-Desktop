@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling.Popups;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:converters="clr-namespace:MeihuaWintryDesktopWpf.Converters"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=vm:MessagePopupViewModel}"
+             d:DataContext="{d:DesignInstance Type=vm:MessagePopup}"
              d:DesignHeight="300" d:DesignWidth="600">
-
+    <UserControl.Resources>
+        <converters:ObjectIsNullToVisibilityConverter x:Key="ObjectIsNullToVisibilityConverter">
+        </converters:ObjectIsNullToVisibilityConverter>
+    </UserControl.Resources>
+    
     <Grid Background="#88000000">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -49,6 +54,7 @@
 							VerticalAlignment="Center" HorizontalAlignment="Center"
 							Command="{Binding ChooseYesCommand}"/>
                     <Button Grid.Column="2"
+                            Visibility="{Binding NoText, Converter={StaticResource ObjectIsNullToVisibilityConverter}}"
 							Content="{Binding NoText}"
 							d:Content="取消"
 							VerticalAlignment="Center" HorizontalAlignment="Center"

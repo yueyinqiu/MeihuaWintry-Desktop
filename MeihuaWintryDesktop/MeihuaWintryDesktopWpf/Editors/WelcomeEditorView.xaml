@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling.Editors;assembly=MeihuaWintryDesktop.ViewModelling"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=vm:WelcomeEditorViewModel}"
+             d:DataContext="{d:DesignInstance Type=vm:WelcomeEditor}"
              d:DesignHeight="450" d:DesignWidth="600">
 
     <StackPanel>

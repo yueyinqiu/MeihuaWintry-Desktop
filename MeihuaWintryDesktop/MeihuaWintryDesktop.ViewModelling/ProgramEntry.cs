@@ -2,12 +2,6 @@
 using MeihuaWintryDesktop.ViewModelling.Popups;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 using MeihuaWintryDesktop.ViewModelling.Tools.ParameterizedStarting;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeihuaWintryDesktop.ViewModelling;
 public sealed class ProgramEntry : IDisposable

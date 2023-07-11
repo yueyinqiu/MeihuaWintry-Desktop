@@ -1,10 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MeihuaWintryDesktop.Storaging.GlobalConfiguring.AccessHistorys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MeihuaWintryDesktop.Storaging.GlobalConfiguring.AccessHistorys;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 public sealed class AccessHistory : IStoredAccessHistory

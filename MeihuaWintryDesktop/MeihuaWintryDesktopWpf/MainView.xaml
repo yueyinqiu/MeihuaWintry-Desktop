@@ -16,7 +16,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <!-- 弹出框 -->
-        <ContentControl Content="{Binding Popup}" Panel.ZIndex="1" Visibility="Collapsed">
+        <ContentControl Content="{Binding Popup}" Panel.ZIndex="1">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vmpopup:MessagePopup}">
                     <popups:MessagePopupView></popups:MessagePopupView>
