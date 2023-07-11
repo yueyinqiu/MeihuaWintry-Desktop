@@ -2,7 +2,7 @@
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
-public sealed partial class StoreSidebarViewModel : SidebarViewModelBase, ISidebarViewModel
+public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
 {
     private readonly CaseStore store;
 
@@ -11,7 +11,7 @@ public sealed partial class StoreSidebarViewModel : SidebarViewModelBase, ISideb
         return this.store;
     }
 
-    internal StoreSidebarViewModel(MainViewModel mainViewModel, CaseStore store) : base(mainViewModel)
+    internal StoreSidebar(MainViewModel mainViewModel, CaseStore store) : base(mainViewModel)
     {
         this.store = store;
     }

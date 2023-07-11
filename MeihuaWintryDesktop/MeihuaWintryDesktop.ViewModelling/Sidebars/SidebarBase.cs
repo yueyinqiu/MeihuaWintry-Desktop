@@ -6,13 +6,13 @@ using MeihuaWintryDesktop.ViewModelling.Popups;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
-public abstract partial class SidebarViewModelBase : ObservableObject, ISidebarViewModel
+public abstract partial class SidebarBase : ObservableObject, ISidebarViewModel
 {
     protected MainViewModel MainViewModel { get; }
 
     protected abstract CaseStore? GetStoreIfExists();
 
-    internal SidebarViewModelBase(MainViewModel mainViewModel)
+    internal SidebarBase(MainViewModel mainViewModel)
     {
         this.MainViewModel = mainViewModel;
     }
@@ -33,7 +33,7 @@ public abstract partial class SidebarViewModelBase : ObservableObject, ISidebarV
                     $"{Environment.NewLine}这可能是因为路径本身格式不正确，或者权限不足导致的。" +
                     $"{Environment.NewLine}具体异常信息：" +
                     $"{Environment.NewLine}{ex}";
-                this.MainViewModel.Popup = new MessagePopupViewModel() {
+                this.MainViewModel.Popup = new MessagePopup() {
                     Title = "无法打开占例仓库",
                     Message = popupMessage,
                     YesText = "确定",
@@ -52,7 +52,7 @@ public abstract partial class SidebarViewModelBase : ObservableObject, ISidebarV
                     $"{Environment.NewLine}这可能是因为文件不存在、内容不正确，或者权限不足导致的。" +
                     $"{Environment.NewLine}具体异常信息：" +
                     $"{Environment.NewLine}{ex}";
-                this.MainViewModel.Popup = new MessagePopupViewModel() {
+                this.MainViewModel.Popup = new MessagePopup() {
                     Title = "无法打开占例仓库",
                     Message = popupMessage,
                     YesText = "确定",
@@ -62,11 +62,11 @@ public abstract partial class SidebarViewModelBase : ObservableObject, ISidebarV
             }
 
             this.GetStoreIfExists()?.Dispose();
-            this.MainViewModel.Sidebar = new StoreSidebarViewModel(this.MainViewModel, store);
-            this.MainViewModel.Editor = new StoreInformationEditorViewModel(store);
+            this.MainViewModel.Sidebar = new StoreSidebar(this.MainViewModel, store);
+            this.MainViewModel.Editor = new StoreInformationEditor(store);
         }
 
-        var popup = new FileSelectionPopupViewModel("请选择要打开的占例文件");
+        var popup = new FileSelectionPopup("请选择要打开的占例文件");
         popup.ChoiceMade += (_, e) => {
             this.MainViewModel.Popup = null;
             if (e.IsCancelled)

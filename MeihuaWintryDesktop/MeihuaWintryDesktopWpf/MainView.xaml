@@ -18,7 +18,7 @@
         <!-- 弹出框 -->
         <ContentControl Content="{Binding Popup}" Panel.ZIndex="1" Visibility="Collapsed">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type vmpopup:MessagePopupViewModel}">
+                <DataTemplate DataType="{x:Type vmpopup:MessagePopup}">
                     <popups:MessagePopupView></popups:MessagePopupView>
                 </DataTemplate>
             </ContentControl.Resources>
@@ -34,7 +34,7 @@
             <ContentControl Grid.Column="0" 
                             Content="{Binding Sidebar}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type vmsidebar:HistorySidebarViewModel}">
+                    <DataTemplate DataType="{x:Type vmsidebar:HistorySidebar}">
                         <sidebars:HistorySidebarView></sidebars:HistorySidebarView>
                     </DataTemplate>
                 </ContentControl.Resources>
@@ -44,7 +44,7 @@
             <ContentControl Grid.Column="1" 
                             Content="{Binding Editor}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type vmeditor:WelcomeEditorViewModel}">
+                    <DataTemplate DataType="{x:Type vmeditor:WelcomeEditor}">
                         <editors:WelcomeEditorView></editors:WelcomeEditorView>
                     </DataTemplate>
                 </ContentControl.Resources>
