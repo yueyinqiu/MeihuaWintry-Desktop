@@ -3,11 +3,11 @@ using MeihuaWintryDesktop.Storaging.CaseStoraging;
 
 namespace MeihuaWintryDesktop.ViewModelling.Editors;
 
-public sealed partial class StoreInformationEditorViewModel : ObservableObject, IEditorViewModel
+public sealed partial class StoreInformationEditor : ObservableObject, IEditorViewModel
 {
     private readonly CaseStore store;
 
-    internal StoreInformationEditorViewModel(CaseStore store)
+    internal StoreInformationEditor(CaseStore store)
     {
         this.store = store;
         this.Notes = store.Settings.StoreNotes;

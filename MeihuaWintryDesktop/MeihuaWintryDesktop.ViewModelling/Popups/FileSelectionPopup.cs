@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace MeihuaWintryDesktop.ViewModelling.Popups;
 
-public sealed partial class FileSelectionPopupViewModel : ObservableObject, IPopupViewModel
+public sealed partial class FileSelectionPopup : ObservableObject, IPopupViewModel
 {
     public sealed class ChoiceMadeEventArgs : EventArgs
     {
@@ -11,7 +11,7 @@ public sealed partial class FileSelectionPopupViewModel : ObservableObject, IPop
         public required string EnteredPath { get; init; }
     }
 
-    internal FileSelectionPopupViewModel(string title)
+    internal FileSelectionPopup(string title)
     {
         this.Title = title;
         this.Path = "";

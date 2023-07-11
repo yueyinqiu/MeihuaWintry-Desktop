@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace MeihuaWintryDesktop.ViewModelling.Popups;
 
-public sealed partial class MessagePopupViewModel : ObservableObject, IPopupViewModel
+public sealed partial class MessagePopup : ObservableObject, IPopupViewModel
 {
     public sealed class ChoiceMadeEventArgs : EventArgs
     {

@@ -2,9 +2,9 @@
 
 namespace MeihuaWintryDesktop.ViewModelling.Editors;
 
-public sealed partial class WelcomeEditorViewModel : ObservableObject, IEditorViewModel
+public sealed partial class WelcomeEditor : ObservableObject, IEditorViewModel
 {
-    internal WelcomeEditorViewModel()
+    internal WelcomeEditor()
     {
 
     }

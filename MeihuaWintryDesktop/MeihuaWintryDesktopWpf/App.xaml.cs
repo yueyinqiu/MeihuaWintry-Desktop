@@ -5,13 +5,20 @@ namespace MeihuaWintryDesktopWpf;
 
 public partial class App : Application
 {
-    protected override void OnStartup(StartupEventArgs e)
+    private MainViewModel mainViewModel;
+
+    private void ThisStartup(object sender, StartupEventArgs e)
     {
-        base.OnStartup(e);
+        this.mainViewModel = new MainViewModel();
 
         this.MainWindow = new MainWindow() {
-            DataContext = new MainViewModel()
+            DataContext = this.mainViewModel
         };
         this.MainWindow.Show();
+    }
+
+    private void ThisExit(object sender, ExitEventArgs e)
+    {
+        this.mainViewModel?.Dispose();
     }
 }
