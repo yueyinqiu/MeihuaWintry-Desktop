@@ -18,7 +18,7 @@ public sealed class CaseManager : ICaseManager
             .ToEnumerable();
     }
 
-    public IStoredCaseWithId? GetCase(ObjectId? id)
+    public IStoredCaseWithId? GetCase(ObjectId id)
     {
         return this.collection.FindById(id);
     }

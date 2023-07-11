@@ -16,8 +16,19 @@ internal sealed class StoredCase : IStoredCaseWithId
         }
     }
 
+    private ObjectId caseId;
     [BsonId]
-    public required ObjectId? CaseId { get; set; }
+    public required ObjectId CaseId
+    {
+        get => this.caseId;
+        [MemberNotNull(nameof(caseId))]
+        set
+        {
+            if (value is null)
+                throw new ArgumentNullException(nameof(value), "CaseId 不可以为 null 。");
+            this.caseId = value;
+        }
+    }
 
     public required DateTime LastEdit { get; set; }
 
