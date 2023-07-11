@@ -15,7 +15,7 @@ public partial class App : Application
         this.programEntry = new ProgramEntry(args);
 
         this.MainWindow = new MainWindow() {
-            DataContext = this.programEntry.MainViewModel
+            DataContext = this.programEntry
         };
         this.MainWindow.Show();
     }
