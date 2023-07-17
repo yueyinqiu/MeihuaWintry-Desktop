@@ -72,6 +72,7 @@ public abstract partial class SidebarBase : ObservableObject, ISidebarViewModel
             };
             return;
         }
+        this.DisposableManager.Add(store);
         this.DisposableManager.DisposeAndRemove(this.GetStoreIfExists());
         this.MainViewModel.Sidebar = new StoreSidebar(this.MainViewModel, this.DisposableManager, store);
         this.MainViewModel.Editor = new StoreInformationEditor(store);

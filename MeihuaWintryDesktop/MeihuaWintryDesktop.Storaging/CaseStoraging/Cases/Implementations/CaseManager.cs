@@ -11,11 +11,11 @@ public sealed class CaseManager : ICaseManager
         this.collection.EnsureIndex(x => x.LastEdit);
     }
 
-    public IEnumerable<IStoredCaseWithId> ListCasesByLastEdit()
+    public ICaseSearchResult ListCasesByLastEdit()
     {
-        return this.collection.Query()
-            .OrderByDescending(s => s.LastEdit)
-            .ToEnumerable();
+        var query = this.collection.Query()
+            .OrderByDescending(s => s.LastEdit);
+        return new CaseSearchResult(query);
     }
 
     public IStoredCaseWithId? GetCase(ObjectId id)

@@ -81,13 +81,13 @@ public class CaseStoreTests
             GregorianTime = time,
             Guas = new[] {
                 new StoredGua() {
-                    Display = Gua.Parse("011"),
-                    Gua = Gua.Parse("011011"),
+                    Gua = Gua.Parse("011"),
+                    AnnotationKey = "GUA011011",
                     Name = "GUA011"
                 },
                 new StoredGua() {
-                    Display = null,
-                    Gua = Gua.Parse("1"),
+                    Gua = null,
+                    AnnotationKey = "GUA1",
                     Name = null
                 },
             },
@@ -117,8 +117,8 @@ public class CaseStoreTests
         Assert.AreEqual(cIn.Notes, cOut.Notes);
         Assert.AreEqual(cIn.ChineseLunarTime.Day, cOut.ChineseLunarTime.Day);
 
-        Assert.AreNotEqual(cIn.Guas.ElementAt(1).Display, cOut.Guas.ElementAt(1).Display);
-        Assert.AreEqual(Gua.Parse(""), cOut.Guas.ElementAt(1).Display);
+        Assert.AreNotEqual(cIn.Guas.ElementAt(1).Gua, cOut.Guas.ElementAt(1).Gua);
+        Assert.AreEqual(Gua.Parse(""), cOut.Guas.ElementAt(1).Gua);
 
         cIn.CaseId = cOut.CaseId;
         cIn.OwnerDescription = null;
@@ -131,9 +131,13 @@ public class CaseStoreTests
 
         Assert.AreEqual("GUAZHUSHIJIANGSHI", cOut.OwnerDescription);
 
-        var cases = store.Cases.ListCasesByLastEdit().ToArray();
-        Assert.AreEqual(5, cases.Length);
-        Assert.AreEqual("", cases[3].OwnerDescription);
+        var cases = store.Cases.ListCasesByLastEdit();
+        Assert.AreEqual(5, cases.PageCount(1));
+        Assert.AreEqual(3, cases.PageCount(2));
+        Assert.AreEqual(2, cases.PageCount(3));
+        Assert.AreEqual(2, cases.PageCount(4));
+        Assert.AreEqual(1, cases.PageCount(5));
+        Assert.AreEqual("", cases.ToEnumerable(0, 100).ToArray()[3].OwnerDescription);
     }
 
     [TestMethod()]
@@ -141,22 +145,22 @@ public class CaseStoreTests
     {
         using var store = NewStore();
 
-        store.Annotations[Gua.Parse("")] = "";
-        store.Annotations[Gua.Parse("1111")] = "1111";
-        store.Annotations[Gua.Parse("001")] = "GUA001";
+        store.Annotations["GUA"] = "";
+        store.Annotations["GUA1111"] = "1111";
+        store.Annotations["GUA001"] = "GUA001";
 
-        var all = store.Annotations.Enumerate().ToDictionary(x => x.gua, x => x.annotation);
+        var all = store.Annotations.Enumerate().ToDictionary(x => x.key, x => x.annotation);
         Assert.AreEqual(3, all.Count);
-        Assert.AreEqual("", all[Gua.Parse("")]);
-        Assert.AreEqual("GUA001", all[Gua.Parse("001")]);
-        Assert.AreEqual(all[Gua.Parse("1111")], store.Annotations[Gua.Parse("1111")]);
-        Assert.AreEqual(null, store.Annotations[Gua.Parse("111111111111")]);
+        Assert.AreEqual("", all["GUA"]);
+        Assert.AreEqual("GUA001", all["GUA001"]);
+        Assert.AreEqual(all["GUA1111"], store.Annotations["GUA1111"]);
+        Assert.AreEqual(null, store.Annotations["GUA111111111111"]);
 
-        store.Annotations[Gua.Parse("001")] = null;
+        store.Annotations["GUA001"] = null;
 
-        all = store.Annotations.Enumerate().ToDictionary(x => x.gua, x => x.annotation);
+        all = store.Annotations.Enumerate().ToDictionary(x => x.key, x => x.annotation);
         Assert.AreEqual(2, all.Count);
-        Assert.AreEqual(null, store.Annotations[Gua.Parse("001")]);
+        Assert.AreEqual(null, store.Annotations["GUA001"]);
     }
 
     [TestMethod()]

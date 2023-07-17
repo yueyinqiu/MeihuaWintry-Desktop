@@ -8,5 +8,5 @@ internal class StoredGua : IStoredGua
 
     public Gua Gua { get; set; }
 
-    public Gua Display { get; set; }
+    public string AnnotationKey { get; set; }
 }

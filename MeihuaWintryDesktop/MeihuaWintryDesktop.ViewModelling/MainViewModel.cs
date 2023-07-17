@@ -16,15 +16,15 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
     [ObservableProperty]
     private bool isClosed;
 
-    // TODO: 把 setter 设为 private 。
+    // TODO: 把 setter 设为 internal 。
     [ObservableProperty]
     private IPopupViewModel? popup;
 
-    // TODO: 把 setter 设为 private 。
+    // TODO: 把 setter 设为 internal 。
     [ObservableProperty]
     private IEditorViewModel? editor;
 
-    // TODO: 把 setter 设为 private 。
+    // TODO: 把 setter 设为 internal 。
     [ObservableProperty]
     private ISidebarViewModel? sidebar;
 
