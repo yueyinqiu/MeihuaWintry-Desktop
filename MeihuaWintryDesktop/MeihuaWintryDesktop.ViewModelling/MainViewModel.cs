@@ -5,6 +5,7 @@ using MeihuaWintryDesktop.ViewModelling.Editors;
 using MeihuaWintryDesktop.ViewModelling.Popups;
 using MeihuaWintryDesktop.ViewModelling.Sidebars;
 using MeihuaWintryDesktop.ViewModelling.Tools.ParameterizedStarting;
+using System.Diagnostics;
 
 namespace MeihuaWintryDesktop.ViewModelling;
 
@@ -42,6 +43,13 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
         this.Editor = new WelcomeEditor();
         this.Sidebar = new HistorySidebar(this, globalConfiguration);
         this.Popup = warningPopup;
+
+        if (startingArguments.StartingStore is not null)
+        {
+            var sidebar = (SidebarBase)this.Sidebar;
+            Debug.Assert(sidebar.OpenCaseFileCommand.CanExecute(null));
+            sidebar.OpenCaseFileCommand.Execute(startingArguments.StartingStore);
+        }
     }
 
     [RelayCommand]

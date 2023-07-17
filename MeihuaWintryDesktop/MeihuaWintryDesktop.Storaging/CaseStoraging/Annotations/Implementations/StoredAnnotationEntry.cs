@@ -5,6 +5,6 @@ namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Annotations.Implementation
 internal sealed class StoredAnnotationEntry
 {
     [BsonId(autoId: false)]
-    public required Gua? Gua { get; set; }
+    public required string? Key { get; set; }
     public required string? Annotation { get; set; }
 }

@@ -20,17 +20,11 @@ internal sealed class StoredGua : IStoredGua
         set => this.gua = value ?? new Gua();
     }
 
-    private Gua display;
-    public required Gua Display
-    {
-        get => this.display;
-        [MemberNotNull(nameof(display))]
-        set => this.display = value ?? new Gua();
-    }
+    public required string? AnnotationKey { get; set; }
 
     public override string ToString()
     {
-        return $"{this.Name}: {this.Display} ({this.Gua})";
+        return $"{this.Name}: {this.Gua} ({this.AnnotationKey})";
     }
 
     public static StoredGua FromInterfaceType(IStoredGua g)
@@ -38,7 +32,7 @@ internal sealed class StoredGua : IStoredGua
         return new StoredGua() {
             Name = g.Name,
             Gua = g.Gua,
-            Display = g.Display
+            AnnotationKey = g.AnnotationKey
         };
     }
 }

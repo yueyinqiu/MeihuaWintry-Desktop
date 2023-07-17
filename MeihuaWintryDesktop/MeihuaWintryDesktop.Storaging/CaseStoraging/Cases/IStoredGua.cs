@@ -5,5 +5,5 @@ public interface IStoredGua
 {
     string Name { get; }
     Gua Gua { get; }
-    Gua Display { get; }
+    string? AnnotationKey { get; }
 }

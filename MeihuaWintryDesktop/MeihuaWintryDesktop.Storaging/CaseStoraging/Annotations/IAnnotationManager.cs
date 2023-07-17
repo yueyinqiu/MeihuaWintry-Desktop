@@ -3,7 +3,7 @@
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Annotations;
 public interface IAnnotationManager
 {
-    string? this[Gua gua] { get; set; }
+    string? this[string key] { get; set; }
 
-    IEnumerable<(Gua gua, string annotation)> Enumerate();
+    IEnumerable<(string key, string annotation)> Enumerate();
 }
