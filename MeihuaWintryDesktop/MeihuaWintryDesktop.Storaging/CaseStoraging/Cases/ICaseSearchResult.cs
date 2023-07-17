@@ -1,6 +1,4 @@
-﻿using LiteDB;
-
-namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
+﻿namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 
 public interface ICaseSearchResult
 {

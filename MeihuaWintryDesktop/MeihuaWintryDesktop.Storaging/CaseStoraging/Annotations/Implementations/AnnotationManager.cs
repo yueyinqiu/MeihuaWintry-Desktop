@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using YiJingFramework.PrimitiveTypes;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Annotations.Implementations;
 public sealed class AnnotationManager : IAnnotationManager

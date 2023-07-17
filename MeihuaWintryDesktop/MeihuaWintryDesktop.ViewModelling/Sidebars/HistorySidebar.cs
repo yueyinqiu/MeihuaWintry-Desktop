@@ -11,7 +11,7 @@ public sealed partial class HistorySidebar : SidebarBase, ISidebarViewModel
         return null;
     }
 
-    internal HistorySidebar(MainViewModel mainViewModel, DisposableManager disposableManager, GlobalConfiguration configurations) 
+    internal HistorySidebar(MainViewModel mainViewModel, DisposableManager disposableManager, GlobalConfiguration configurations)
         : base(mainViewModel, disposableManager)
     {
         this.Histories =

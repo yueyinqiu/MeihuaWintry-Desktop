@@ -1,10 +1,4 @@
-﻿using LiteDB;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 public sealed class SearchedCase
@@ -20,5 +14,5 @@ public sealed class SearchedCase
         this.searchingDetails = searchingDetails;
     }
     public string Title => this.InnerCase.Title;
-    public string SearchingDetails => searchingDetails(this.InnerCase);
+    public string SearchingDetails => this.searchingDetails(this.InnerCase);
 }
