@@ -4,6 +4,7 @@ using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 using System.Collections.ObjectModel;
 using System.Linq;
+using static MeihuaWintryDesktop.ViewModelling.Sidebars.SearchedCase;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
@@ -16,17 +17,17 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
         return this.store;
     }
 
-    internal StoreSidebar(MainViewModel mainViewModel, DisposableManager disposableManager, CaseStore store) 
+    internal StoreSidebar(MainViewModel mainViewModel, DisposableManager disposableManager, CaseStore store)
         : base(mainViewModel, disposableManager)
     {
         this.store = store;
         this.ListingCases = Array.Empty<SearchedCase>();
 
-        this.searchedCases = store.Cases.ListCasesByLastEdit();
+        this.searchedCases = (store.Cases.ListCasesByLastEdit(), _ => "");
         this.CurrentPageIndex = 1;
     }
 
-    private ICaseSearchResult searchedCases;
+    private (ICaseSearchResult Cases, SearchingDetailProvider Details) searchedCases;
 
     [ObservableProperty]
     private IEnumerable<SearchedCase> listingCases;
@@ -52,8 +53,10 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
         }
 
         const int pageSize = 20;
-        this.TotalPageCount = searchedCases.PageCount(pageSize);
-        this.ListingCases = searchedCases.ToEnumerable(this.CurrentPageIndex - 1, pageSize)
-            .Select(x => new SearchedCase(x));
+        var searchedCases = this.searchedCases;
+        this.TotalPageCount = searchedCases.Cases.PageCount(pageSize);
+        this.ListingCases = searchedCases.Cases
+            .ToEnumerable(this.CurrentPageIndex - 1, pageSize)
+            .Select(x => new SearchedCase(x, searchedCases.Details));
     }
 }
