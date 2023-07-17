@@ -4,6 +4,7 @@ using MeihuaWintryDesktop.Storaging.GlobalConfiguring;
 using MeihuaWintryDesktop.ViewModelling.Editors;
 using MeihuaWintryDesktop.ViewModelling.Popups;
 using MeihuaWintryDesktop.ViewModelling.Sidebars;
+using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 using MeihuaWintryDesktop.ViewModelling.Tools.ParameterizedStarting;
 using System.Diagnostics;
 
@@ -35,20 +36,20 @@ public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
     }
 
     internal MainViewModel(
+        DisposableManager disposableManager,
         GlobalConfiguration globalConfiguration,
         StartingArguments startingArguments,
         MessagePopup? warningPopup = null)
     {
         this.IsClosed = false;
         this.Editor = new WelcomeEditor();
-        this.Sidebar = new HistorySidebar(this, globalConfiguration);
+        this.Sidebar = new HistorySidebar(this, disposableManager, globalConfiguration);
         this.Popup = warningPopup;
 
         if (startingArguments.StartingStore is not null)
         {
             var sidebar = (SidebarBase)this.Sidebar;
-            Debug.Assert(sidebar.OpenCaseFileCommand.CanExecute(null));
-            sidebar.OpenCaseFileCommand.Execute(startingArguments.StartingStore);
+            sidebar.OpenStoreOrShowPopup(startingArguments.StartingStore);
         }
     }
 

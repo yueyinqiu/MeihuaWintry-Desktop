@@ -1,5 +1,6 @@
 ﻿using MeihuaWintryDesktop.Storaging.CaseStoraging;
 using MeihuaWintryDesktop.Storaging.GlobalConfiguring;
+using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
@@ -10,7 +11,8 @@ public sealed partial class HistorySidebar : SidebarBase, ISidebarViewModel
         return null;
     }
 
-    internal HistorySidebar(MainViewModel mainViewModel, GlobalConfiguration configurations) : base(mainViewModel)
+    internal HistorySidebar(MainViewModel mainViewModel, DisposableManager disposableManager, GlobalConfiguration configurations) 
+        : base(mainViewModel, disposableManager)
     {
         this.Histories =
             configurations.AccessHistorys.ListHistorysByLastAccess()

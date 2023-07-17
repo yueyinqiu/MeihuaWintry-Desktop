@@ -1,4 +1,5 @@
 ﻿using MeihuaWintryDesktop.Storaging.CaseStoraging;
+using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
@@ -11,7 +12,8 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
         return this.store;
     }
 
-    internal StoreSidebar(MainViewModel mainViewModel, CaseStore store) : base(mainViewModel)
+    internal StoreSidebar(MainViewModel mainViewModel, DisposableManager disposableManager, CaseStore store) 
+        : base(mainViewModel, disposableManager)
     {
         this.store = store;
     }

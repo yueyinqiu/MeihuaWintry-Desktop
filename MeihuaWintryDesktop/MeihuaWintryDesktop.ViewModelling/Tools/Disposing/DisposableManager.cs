@@ -12,9 +12,12 @@ public sealed class DisposableManager : IDisposable
         return this.managedObjects.TryAdd(obj, default);
     }
 
-    public bool Remove(IDisposable obj, bool doDisposing = false)
+    public void DisposeAndRemove(IDisposable? obj)
     {
-        return this.managedObjects.TryRemove(obj, out _);
+        if (obj is null)
+            return;
+        obj.Dispose();
+        this.managedObjects.TryRemove(obj, out _);
     }
 
     public void Dispose()

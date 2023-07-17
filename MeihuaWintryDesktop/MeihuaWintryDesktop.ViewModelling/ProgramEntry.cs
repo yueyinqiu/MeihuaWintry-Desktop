@@ -43,6 +43,6 @@ public sealed class ProgramEntry : IDisposable
             return;
         }
 
-        this.MainViewModel = new MainViewModel(configuration, arguments);
+        this.MainViewModel = new MainViewModel(this.DisposableManager, configuration, arguments);
     }
 }
