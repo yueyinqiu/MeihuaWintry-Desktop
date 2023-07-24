@@ -131,13 +131,8 @@ public class CaseStoreTests
 
         Assert.AreEqual("GUAZHUSHIJIANGSHI", cOut.OwnerDescription);
 
-        var cases = store.Cases.ListCasesByLastEdit();
-        Assert.AreEqual(5, cases.PageCount(1));
-        Assert.AreEqual(3, cases.PageCount(2));
-        Assert.AreEqual(2, cases.PageCount(3));
-        Assert.AreEqual(2, cases.PageCount(4));
-        Assert.AreEqual(1, cases.PageCount(5));
-        Assert.AreEqual("", cases.ToEnumerable(0, 100).ToArray()[3].OwnerDescription);
+        var cases = store.Cases.CreateQuery().OrderByLastEdit(true).Query();
+        Assert.AreEqual("", cases.ToArray()[3].OwnerDescription);
     }
 
     [TestMethod()]

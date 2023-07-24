@@ -1,15 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MeihuaWintryDesktop.Storaging.CaseStoraging;
 using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
+using MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching;
+using MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching.Options;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
-using static MeihuaWintryDesktop.ViewModelling.Sidebars.SearchedCase;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
 public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
 {
     private readonly CaseStore store;
-
+    private readonly CaseSearcher caseSearcher;
     protected override CaseStore? GetStoreIfExists()
     {
         return this.store;
@@ -19,13 +20,15 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
         : base(mainViewModel, disposableManager)
     {
         this.store = store;
+        this.caseSearcher = new CaseSearcher(store);
+
         this.ListingCases = Array.Empty<SearchedCase>();
 
-        this.searchedCases = (store.Cases.ListCasesByLastEdit(), _ => "");
+        this.searchedCases = caseSearcher.Search(OrderByOptions.LastEdit, true);
         this.CurrentPageIndex = 1;
     }
 
-    private (ICaseSearchResult Cases, SearchingDetailProvider Details) searchedCases;
+    private CaseSearchResult searchedCases;
 
     [ObservableProperty]
     private IEnumerable<SearchedCase> listingCases;
@@ -50,11 +53,8 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
             return;
         }
 
-        const int pageSize = 20;
         var searchedCases = this.searchedCases;
-        this.TotalPageCount = searchedCases.Cases.PageCount(pageSize);
-        this.ListingCases = searchedCases.Cases
-            .ToEnumerable(this.CurrentPageIndex - 1, pageSize)
-            .Select(x => new SearchedCase(x, searchedCases.Details));
+        this.TotalPageCount = searchedCases.GetPageCount();
+        this.ListingCases = searchedCases.GetPage(this.CurrentPageIndex - 1);
     }
 }

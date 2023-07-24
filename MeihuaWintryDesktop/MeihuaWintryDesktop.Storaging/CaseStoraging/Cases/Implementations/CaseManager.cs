@@ -11,13 +11,6 @@ public sealed class CaseManager : ICaseManager
         this.collection.EnsureIndex(x => x.LastEdit);
     }
 
-    public ICaseSearchResult ListCasesByLastEdit()
-    {
-        var query = this.collection.Query()
-            .OrderByDescending(s => s.LastEdit);
-        return new CaseSearchResult(query);
-    }
-
     public IStoredCaseWithId? GetCase(ObjectId id)
     {
         return this.collection.FindById(id);
@@ -35,5 +28,10 @@ public sealed class CaseManager : ICaseManager
     {
         var caseToUpdate = StoredCase.FromInterfaceType(c);
         _ = this.collection.Upsert(caseToUpdate);
+    }
+
+    public ICaseQuery CreateQuery()
+    {
+        return new CaseQuery(this.collection);
     }
 }
