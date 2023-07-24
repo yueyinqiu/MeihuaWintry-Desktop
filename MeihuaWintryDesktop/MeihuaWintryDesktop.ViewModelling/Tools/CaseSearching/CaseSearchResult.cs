@@ -1,11 +1,4 @@
-﻿using MeihuaWintryDesktop.Storaging.CaseStoraging;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching.CaseSearchResult;
+﻿using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 
 namespace MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching;
 internal sealed class CaseSearchResult
@@ -25,14 +18,14 @@ internal sealed class CaseSearchResult
 
     public int GetPageCount()
     {
-        return (factory().Count() + this.PageSize - 1) / this.PageSize;
+        return (this.factory().Count() + this.PageSize - 1) / this.PageSize;
     }
     public IEnumerable<SearchedCase> GetPage(int index0Based)
     {
-        return factory()
+        return this.factory()
             .Skip(index0Based * this.PageSize)
             .Limit(this.PageSize)
             .Query()
-            .Select(x => new SearchedCase(x, detailSelector?.Invoke(x)));
+            .Select(x => new SearchedCase(x, this.detailSelector?.Invoke(x)));
     }
 }

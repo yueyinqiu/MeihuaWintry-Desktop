@@ -11,7 +11,7 @@ internal sealed class CaseQuery : ICaseQuery
 
     public int Count()
     {
-        return query.Count();
+        return this.query.Count();
     }
 
     public ICaseQuery FilterByOwner(string owner)

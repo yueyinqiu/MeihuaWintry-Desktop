@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MeihuaWintryDesktop.Storaging.CaseStoraging;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 using MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching;
 using MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching.Options;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
@@ -24,7 +23,7 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
 
         this.ListingCases = Array.Empty<SearchedCase>();
 
-        this.searchedCases = caseSearcher.Search(OrderByOptions.LastEdit, true);
+        this.searchedCases = this.caseSearcher.Search(OrderByOptions.LastEdit, true);
         this.CurrentPageIndex = 1;
     }
 

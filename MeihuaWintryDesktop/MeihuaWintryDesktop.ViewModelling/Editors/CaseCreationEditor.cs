@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MeihuaWintryDesktop.Storaging.CaseStoraging;
-using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 
 namespace MeihuaWintryDesktop.ViewModelling.Editors;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MeihuaWintryDesktop.ViewModelling.Tools.CaseEditing.Scripting;
+﻿namespace MeihuaWintryDesktop.ViewModelling.Tools.CaseEditing.Scripting;
 
 [Serializable]
 public class ScriptFailedException : Exception

@@ -1,11 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeihuaWintryDesktop.ViewModelling.Tools.CaseEditing.Scripting;
 public sealed class ScriptRunner<TGlobals>
@@ -37,7 +31,7 @@ public sealed class ScriptRunner<TGlobals>
                     cancellationToken: cancellationToken);
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new ScriptFailedException(ex);
         }
