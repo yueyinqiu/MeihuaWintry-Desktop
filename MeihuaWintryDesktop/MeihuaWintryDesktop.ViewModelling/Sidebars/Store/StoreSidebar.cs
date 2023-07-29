@@ -4,7 +4,7 @@ using MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching;
 using MeihuaWintryDesktop.ViewModelling.Tools.CaseSearching.Options;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 
-namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
+namespace MeihuaWintryDesktop.ViewModelling.Sidebars.Store;
 
 public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
 {

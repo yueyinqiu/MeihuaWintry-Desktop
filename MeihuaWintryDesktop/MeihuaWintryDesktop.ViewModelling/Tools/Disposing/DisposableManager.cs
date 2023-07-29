@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 
 namespace MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
-public sealed class DisposableManager : IDisposable
+internal sealed class DisposableManager : IDisposable
 {
     private record struct Unit;
 

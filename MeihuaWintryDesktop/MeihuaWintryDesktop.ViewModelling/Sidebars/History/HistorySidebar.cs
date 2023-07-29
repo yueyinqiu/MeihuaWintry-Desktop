@@ -1,9 +1,8 @@
 ﻿using MeihuaWintryDesktop.Storaging.CaseStoraging;
 using MeihuaWintryDesktop.Storaging.GlobalConfiguring;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
-using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
 
-namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
+namespace MeihuaWintryDesktop.ViewModelling.Sidebars.History;
 
 public sealed partial class HistorySidebar : SidebarBase, ISidebarViewModel
 {

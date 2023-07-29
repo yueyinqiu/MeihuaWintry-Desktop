@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace MeihuaWintryDesktop.ViewModelling.Editors;
+namespace MeihuaWintryDesktop.ViewModelling.Editors.Welcome;
 
 public sealed partial class WelcomeEditor : ObservableObject, IEditorViewModel
 {

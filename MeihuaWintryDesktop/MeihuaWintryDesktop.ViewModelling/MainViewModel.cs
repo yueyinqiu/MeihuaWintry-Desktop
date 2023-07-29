@@ -2,9 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using MeihuaWintryDesktop.Storaging.GlobalConfiguring;
 using MeihuaWintryDesktop.ViewModelling.Editors;
+using MeihuaWintryDesktop.ViewModelling.Editors.Welcome;
 using MeihuaWintryDesktop.ViewModelling.Popups;
 using MeihuaWintryDesktop.ViewModelling.Popups.Message;
 using MeihuaWintryDesktop.ViewModelling.Sidebars;
+using MeihuaWintryDesktop.ViewModelling.Sidebars.History;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 using MeihuaWintryDesktop.ViewModelling.Tools.ParameterizedStarting;
 using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
@@ -18,7 +20,9 @@ public sealed partial class MainViewModel : ObservableObject, IPopupContext, IMa
 
     [ObservableProperty]
     private IPopupViewModel? popup;
-    public PopupStack PopupStack { get; }
+
+    private readonly PopupStack popupStack;
+    PopupStack IMainContext.PopupStack => this.popupStack;
 
     [ObservableProperty]
     private IEditorViewModel? editor;
@@ -28,10 +32,10 @@ public sealed partial class MainViewModel : ObservableObject, IPopupContext, IMa
 
     internal MainViewModel(MessagePopup errorPopup)
     {
-        this.PopupStack = new PopupStack(this);
+        this.popupStack = new PopupStack(this);
 
         errorPopup.ChoiceMade += (_, _) => this.IsClosed = true;
-        this.PopupStack.Popup(errorPopup);
+        this.popupStack.Popup(errorPopup);
     }
 
     internal MainViewModel(
@@ -39,7 +43,7 @@ public sealed partial class MainViewModel : ObservableObject, IPopupContext, IMa
         GlobalConfiguration globalConfiguration,
         StartingArguments startingArguments)
     {
-        this.PopupStack = new PopupStack(this);
+        this.popupStack = new PopupStack(this);
 
         this.Editor = new WelcomeEditor();
         this.Sidebar = new HistorySidebar(this, disposableManager, globalConfiguration);

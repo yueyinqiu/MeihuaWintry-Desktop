@@ -1,11 +1,11 @@
 ﻿using MeihuaWintryDesktop.ViewModelling.Popups;
 
 namespace MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
-public sealed class PopupStack
+internal sealed class PopupStack
 {
     private readonly LinkedList<IPopupViewModel> popups = new();
     private readonly IPopupContext context;
-    
+
     internal PopupStack(IPopupContext context)
     {
         this.context = context;
@@ -13,10 +13,10 @@ public sealed class PopupStack
 
     public void Popup(IPopupViewModel popup)
     {
-        var current = context.Popup;
+        var current = this.context.Popup;
         if (current is not null)
-            popups.AddFirst(current);
-        context.Popup = popup;
+            this.popups.AddFirst(current);
+        this.context.Popup = popup;
     }
 
     public bool Close(IPopupViewModel? popup)
@@ -24,17 +24,17 @@ public sealed class PopupStack
         if (popup is null)
             return false;
 
-        if (context.Popup == popup)
+        if (this.context.Popup == popup)
         {
-            var next = popups.First?.Value;
-            context.Popup = next;
+            var next = this.popups.First?.Value;
+            this.context.Popup = next;
             if (next is not null)
-                popups.RemoveFirst();
+                this.popups.RemoveFirst();
             return true;
         }
         else
         {
-            return popups.Remove(popup);
+            return this.popups.Remove(popup);
         }
     }
 }

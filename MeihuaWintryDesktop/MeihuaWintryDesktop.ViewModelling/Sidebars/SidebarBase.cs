@@ -1,19 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MeihuaWintryDesktop.Storaging.CaseStoraging;
-using MeihuaWintryDesktop.ViewModelling.Editors;
-using MeihuaWintryDesktop.ViewModelling.Popups;
+using MeihuaWintryDesktop.ViewModelling.Editors.StoreInformation;
 using MeihuaWintryDesktop.ViewModelling.Popups.FileSelection;
 using MeihuaWintryDesktop.ViewModelling.Popups.Message;
+using MeihuaWintryDesktop.ViewModelling.Sidebars.Store;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
-using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
 
 namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
 
 public abstract partial class SidebarBase : ObservableObject, ISidebarViewModel
 {
-    protected IMainContext Context { get; }
-    protected DisposableManager DisposableManager { get; }
+    private protected IMainContext Context { get; }
+    private protected DisposableManager DisposableManager { get; }
     protected abstract CaseStore? GetStoreIfExists();
 
     internal SidebarBase(IMainContext context, DisposableManager disposableManager)
@@ -25,9 +24,8 @@ public abstract partial class SidebarBase : ObservableObject, ISidebarViewModel
     [RelayCommand]
     private void OpenStore()
     {
-        var popup = new FileSelectionPopup() {
-            Title = "请选择要打开的占例文件",
-            AutoClose = this.Context.PopupStack
+        var popup = new FileSelectionPopup(this.Context.PopupStack) {
+            Title = "请选择要打开的占例文件"
         };
         popup.ChoiceMade += (_, e) => {
             if (e.IsCancelled)
@@ -50,12 +48,11 @@ public abstract partial class SidebarBase : ObservableObject, ISidebarViewModel
                 $"{Environment.NewLine}这可能是因为路径本身格式不正确，或者权限不足导致的。" +
                 $"{Environment.NewLine}具体异常信息：" +
                 $"{Environment.NewLine}{ex}";
-            this.Context.PopupStack.Popup(new MessagePopup() {
+            this.Context.PopupStack.Popup(new MessagePopup(this.Context.PopupStack) {
                 Title = "无法打开占例仓库",
                 Message = popupMessage,
                 YesText = "确定",
-                NoText = null,
-                AutoClose = this.Context.PopupStack
+                NoText = null
             });
             return;
         }
@@ -70,12 +67,11 @@ public abstract partial class SidebarBase : ObservableObject, ISidebarViewModel
                 $"{Environment.NewLine}这可能是因为文件不存在、内容不正确，或者权限不足导致的。" +
                 $"{Environment.NewLine}具体异常信息：" +
                 $"{Environment.NewLine}{ex}";
-            this.Context.PopupStack.Popup(new MessagePopup() {
+            this.Context.PopupStack.Popup(new MessagePopup(this.Context.PopupStack) {
                 Title = "无法打开占例仓库",
                 Message = popupMessage,
                 YesText = "确定",
-                NoText = null,
-                AutoClose = this.Context.PopupStack
+                NoText = null
             });
             return;
         }

@@ -4,7 +4,7 @@ using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
 
 namespace MeihuaWintryDesktop.ViewModelling.Popups.FileSelection;
 
-public sealed partial class FileSelectionPopup : ObservableObject, IPopupViewModel
+public sealed partial class FileSelectionPopup : PopupBase, IPopupViewModel
 {
     internal sealed class ChoiceMadeEventArgs : EventArgs
     {
@@ -12,8 +12,7 @@ public sealed partial class FileSelectionPopup : ObservableObject, IPopupViewMod
         public required string EnteredPath { get; init; }
     }
 
-    internal FileSelectionPopup() { }
-    public required PopupStack? AutoClose { get; init; }
+    internal FileSelectionPopup(PopupStack? autoClose) : base(autoClose) { }
 
     public required string Title { get; init; }
 
@@ -29,7 +28,7 @@ public sealed partial class FileSelectionPopup : ObservableObject, IPopupViewMod
             EnteredPath = this.Path,
             IsCancelled = false
         });
-        AutoClose?.Close(this);
+        this.TryAutoClose();
     }
 
     [RelayCommand]
@@ -39,6 +38,6 @@ public sealed partial class FileSelectionPopup : ObservableObject, IPopupViewMod
             EnteredPath = this.Path,
             IsCancelled = true
         });
-        AutoClose?.Close(this);
+        this.TryAutoClose();
     }
 }

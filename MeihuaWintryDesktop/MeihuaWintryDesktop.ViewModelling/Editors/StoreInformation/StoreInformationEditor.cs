@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MeihuaWintryDesktop.Storaging.CaseStoraging;
 
-namespace MeihuaWintryDesktop.ViewModelling.Editors;
+namespace MeihuaWintryDesktop.ViewModelling.Editors.StoreInformation;
 
 public sealed partial class StoreInformationEditor : ObservableObject, IEditorViewModel
 {

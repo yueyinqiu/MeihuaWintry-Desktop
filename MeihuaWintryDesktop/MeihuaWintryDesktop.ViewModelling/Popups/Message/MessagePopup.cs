@@ -1,10 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
 
 namespace MeihuaWintryDesktop.ViewModelling.Popups.Message;
 
-public sealed partial class MessagePopup : ObservableObject, IPopupViewModel
+public sealed partial class MessagePopup : PopupBase, IPopupViewModel
 {
     internal sealed class ChoiceMadeEventArgs : EventArgs
     {
@@ -13,9 +12,8 @@ public sealed partial class MessagePopup : ObservableObject, IPopupViewModel
         public static ChoiceMadeEventArgs No { get; } = new() { IsYes = false };
     }
 
-    internal MessagePopup() { }
+    internal MessagePopup(PopupStack? autoClose) : base(autoClose) { }
 
-    public required PopupStack? AutoClose { get; init; }
     public required string Title { get; init; }
     public required string Message { get; init; }
     public required string? YesText { get; init; }
@@ -27,13 +25,13 @@ public sealed partial class MessagePopup : ObservableObject, IPopupViewModel
     private void ChooseYes()
     {
         ChoiceMade?.Invoke(this, ChoiceMadeEventArgs.Yes);
-        AutoClose?.Close(this);
+        this.TryAutoClose();
     }
 
     [RelayCommand]
     private void ChooseNo()
     {
         ChoiceMade?.Invoke(this, ChoiceMadeEventArgs.No);
-        AutoClose?.Close(this);
+        this.TryAutoClose();
     }
 }

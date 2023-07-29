@@ -33,7 +33,7 @@ internal sealed class StoredChineseLunarTime : IStoredChineseLunarTime
 
         return
             $"{GanzhiToString(this.YearGan)}{GanzhiToString(this.YearZhi)}年 " +
-            $"{(IsLeapMonth ? "闰" : "平")}{IntToString(this.Month)}月 " +
+            $"{(this.IsLeapMonth ? "闰" : "平")}{IntToString(this.Month)}月 " +
             $"{IntToString(this.Day)}日 " +
             $"{GanzhiToString(this.TimeGan)}{GanzhiToString(this.TimeZhi)}时";
     }

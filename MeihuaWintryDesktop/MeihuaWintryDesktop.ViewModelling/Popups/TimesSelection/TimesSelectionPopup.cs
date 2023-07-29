@@ -5,7 +5,7 @@ using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
 
 namespace MeihuaWintryDesktop.ViewModelling.Popups.TimesSelection;
 
-public sealed partial class TimeSelectionPopup : ObservableObject, IPopupViewModel
+public sealed partial class TimeSelectionPopup : PopupBase, IPopupViewModel
 {
     internal sealed class ChoiceMadeEventArgs : EventArgs
     {
@@ -13,7 +13,8 @@ public sealed partial class TimeSelectionPopup : ObservableObject, IPopupViewMod
         public required TheThreeTimes SelectedTime { get; init; }
     }
 
-    internal TimeSelectionPopup(TheThreeTimes? times = null)
+    internal TimeSelectionPopup(PopupStack? autoClose, TheThreeTimes? times = null)
+        : base(autoClose)
     {
         times ??= TheThreeTimes.From(DateTime.Now);
 
@@ -28,7 +29,6 @@ public sealed partial class TimeSelectionPopup : ObservableObject, IPopupViewMod
         this.AutomaticallyGenerateChineseTimes = times.DateTime is not null;
     }
 
-    public required PopupStack AutoClose { get; init; }
     public required string Title { get; init; }
 
     private readonly ContentSelectingDateTime contentSelectingDateTime;
@@ -43,9 +43,9 @@ public sealed partial class TimeSelectionPopup : ObservableObject, IPopupViewMod
         get
         {
             if (this.AutomaticallyGenerateChineseTimes)
-                return contentSelectingDateTime;
+                return this.contentSelectingDateTime;
             else
-                return contentSelectingThreeTimes;
+                return this.contentSelectingThreeTimes;
         }
     }
 
@@ -56,14 +56,14 @@ public sealed partial class TimeSelectionPopup : ObservableObject, IPopupViewMod
         TheThreeTimes times;
         if (this.AutomaticallyGenerateChineseTimes)
         {
-            times = TheThreeTimes.From(contentSelectingDateTime.Value);
+            times = TheThreeTimes.From(this.contentSelectingDateTime.Value);
         }
         else
         {
             times = new TheThreeTimes(
-                new(contentSelectingThreeTimes.Gregorian),
-                new(contentSelectingThreeTimes.ChineseSolar),
-                new(contentSelectingThreeTimes.ChineseLunar));
+                new(this.contentSelectingThreeTimes.Gregorian),
+                new(this.contentSelectingThreeTimes.ChineseSolar),
+                new(this.contentSelectingThreeTimes.ChineseLunar));
         }
 
         ChoiceMade?.Invoke(this, new ChoiceMadeEventArgs() {
@@ -71,18 +71,18 @@ public sealed partial class TimeSelectionPopup : ObservableObject, IPopupViewMod
             IsCancelled = isCancelled
         });
 
-        AutoClose?.Close(this);
+        this.TryAutoClose();
     }
 
     [RelayCommand]
     private void ChooseOk()
     {
-        InvokeChoiceMade(false);
+        this.InvokeChoiceMade(false);
     }
 
     [RelayCommand]
     private void ChooseCancel()
     {
-        InvokeChoiceMade(true);
+        this.InvokeChoiceMade(true);
     }
 }
