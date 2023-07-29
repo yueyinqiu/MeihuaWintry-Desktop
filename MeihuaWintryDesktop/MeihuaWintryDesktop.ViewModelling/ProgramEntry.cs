@@ -1,7 +1,8 @@
 ﻿using MeihuaWintryDesktop.Storaging.GlobalConfiguring;
-using MeihuaWintryDesktop.ViewModelling.Popups;
+using MeihuaWintryDesktop.ViewModelling.Popups.Message;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 using MeihuaWintryDesktop.ViewModelling.Tools.ParameterizedStarting;
+using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
 
 namespace MeihuaWintryDesktop.ViewModelling;
 public sealed class ProgramEntry : IDisposable
@@ -38,6 +39,7 @@ public sealed class ProgramEntry : IDisposable
                 Message = message,
                 YesText = "确定",
                 NoText = null,
+                AutoClose = null
             };
             this.MainViewModel = new MainViewModel(popup);
             return;

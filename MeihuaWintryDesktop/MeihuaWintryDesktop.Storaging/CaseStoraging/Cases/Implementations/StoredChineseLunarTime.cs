@@ -8,6 +8,7 @@ internal sealed class StoredChineseLunarTime : IStoredChineseLunarTime
     public required Tiangan? YearGan { get; set; }
     public required Dizhi? YearZhi { get; set; }
     public required int? Month { get; set; }
+    public bool IsLeapMonth { get; set; }
     public required int? Day { get; set; }
     public required Tiangan? TimeGan { get; set; }
     public required Dizhi? TimeZhi { get; set; }
@@ -32,7 +33,7 @@ internal sealed class StoredChineseLunarTime : IStoredChineseLunarTime
 
         return
             $"{GanzhiToString(this.YearGan)}{GanzhiToString(this.YearZhi)}年 " +
-            $"{IntToString(this.Month)}月 " +
+            $"{(IsLeapMonth ? "闰" : "平")}{IntToString(this.Month)}月 " +
             $"{IntToString(this.Day)}日 " +
             $"{GanzhiToString(this.TimeGan)}{GanzhiToString(this.TimeZhi)}时";
     }
@@ -48,6 +49,7 @@ internal sealed class StoredChineseLunarTime : IStoredChineseLunarTime
                 YearZhi = null,
                 TimeZhi = null,
                 Month = null,
+                IsLeapMonth = false,
                 Day = null
             };
         }
@@ -61,6 +63,7 @@ internal sealed class StoredChineseLunarTime : IStoredChineseLunarTime
             YearZhi = t.YearZhi,
             TimeZhi = t.TimeZhi,
             Month = t.Month,
+            IsLeapMonth = t.IsLeapMonth,
             Day = t.Day
         };
     }

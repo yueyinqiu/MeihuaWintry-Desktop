@@ -9,4 +9,11 @@ internal sealed record ChineseSolarTime(
     Tiangan? TimeGan, Dizhi? TimeZhi
     ) : IStoredChineseSolarTime
 {
+    public ChineseSolarTime(IStoredChineseSolarTime time)
+        : this(time.YearGan, time.YearZhi,
+              time.MonthGan, time.MonthZhi,
+              time.DayGan, time.DayZhi,
+              time.TimeGan, time.TimeZhi)
+    {
+    }
 }

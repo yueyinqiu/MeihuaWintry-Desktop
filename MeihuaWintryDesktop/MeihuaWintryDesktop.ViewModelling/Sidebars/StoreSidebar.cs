@@ -15,8 +15,8 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
         return this.store;
     }
 
-    internal StoreSidebar(MainViewModel mainViewModel, DisposableManager disposableManager, CaseStore store)
-        : base(mainViewModel, disposableManager)
+    internal StoreSidebar(IMainContext context, DisposableManager disposableManager, CaseStore store)
+        : base(context, disposableManager)
     {
         this.store = store;
         this.caseSearcher = new CaseSearcher(store);

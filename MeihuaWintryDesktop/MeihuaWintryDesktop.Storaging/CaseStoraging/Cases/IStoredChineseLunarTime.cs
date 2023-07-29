@@ -8,6 +8,7 @@ public interface IStoredChineseLunarTime
     Dizhi? YearZhi { get; }
 
     int? Month { get; }
+    bool IsLeapMonth { get; }
 
     int? Day { get; }
 

@@ -10,6 +10,8 @@ internal class AnyTime : IStoredChineseLunarTime, IStoredChineseSolarTime, IStor
 
     public int? Month { get; set; }
 
+    public bool IsLeapMonth { get; set; }
+
     public int? Day { get; set; }
 
     public Tiangan? TimeGan { get; set; }

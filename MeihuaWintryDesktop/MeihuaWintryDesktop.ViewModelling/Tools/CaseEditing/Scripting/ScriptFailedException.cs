@@ -3,7 +3,7 @@
 [Serializable]
 public class ScriptFailedException : Exception
 {
-    public ScriptFailedException(Exception? inner) : base("Failed to run the given script.", inner) { }
+    public ScriptFailedException(Exception? inner) : base("在运行脚本时发生了错误。", inner) { }
     protected ScriptFailedException(
       System.Runtime.Serialization.SerializationInfo info,
       System.Runtime.Serialization.StreamingContext context) : base(info, context) { }

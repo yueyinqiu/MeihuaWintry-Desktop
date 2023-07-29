@@ -3,47 +3,46 @@ using CommunityToolkit.Mvvm.Input;
 using MeihuaWintryDesktop.Storaging.GlobalConfiguring;
 using MeihuaWintryDesktop.ViewModelling.Editors;
 using MeihuaWintryDesktop.ViewModelling.Popups;
+using MeihuaWintryDesktop.ViewModelling.Popups.Message;
 using MeihuaWintryDesktop.ViewModelling.Sidebars;
 using MeihuaWintryDesktop.ViewModelling.Tools.Disposing;
 using MeihuaWintryDesktop.ViewModelling.Tools.ParameterizedStarting;
+using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
 
 namespace MeihuaWintryDesktop.ViewModelling;
 
-public sealed partial class MainViewModel : ObservableObject, IPopupViewModel
+public sealed partial class MainViewModel : ObservableObject, IPopupContext, IMainContext
 {
-    // TODO: 把 setter 设为 private 。
     [ObservableProperty]
-    private bool isClosed;
+    private bool isClosed = false;
 
-    // TODO: 把 setter 设为 internal 。
     [ObservableProperty]
     private IPopupViewModel? popup;
+    public PopupStack PopupStack { get; }
 
-    // TODO: 把 setter 设为 internal 。
     [ObservableProperty]
     private IEditorViewModel? editor;
 
-    // TODO: 把 setter 设为 internal 。
     [ObservableProperty]
     private ISidebarViewModel? sidebar;
 
     internal MainViewModel(MessagePopup errorPopup)
     {
-        this.IsClosed = false;
+        this.PopupStack = new PopupStack(this);
+
         errorPopup.ChoiceMade += (_, _) => this.IsClosed = true;
-        this.Popup = errorPopup;
+        this.PopupStack.Popup(errorPopup);
     }
 
     internal MainViewModel(
         DisposableManager disposableManager,
         GlobalConfiguration globalConfiguration,
-        StartingArguments startingArguments,
-        MessagePopup? warningPopup = null)
+        StartingArguments startingArguments)
     {
-        this.IsClosed = false;
+        this.PopupStack = new PopupStack(this);
+
         this.Editor = new WelcomeEditor();
         this.Sidebar = new HistorySidebar(this, disposableManager, globalConfiguration);
-        this.Popup = warningPopup;
 
         if (startingArguments.StartingStore is not null)
         {

@@ -14,9 +14,9 @@ internal sealed class CaseCreationResult : IStoredCase
         this.OwnerDescription = ownerDescription;
         this.Notes = notes;
 
-        this.GregorianTime = times.GregorianTime;
-        this.ChineseSolarTime = times.ChineseSolarTime;
-        this.ChineseLunarTime = times.ChineseLunarTime;
+        this.GregorianTime = times.Gregorian;
+        this.ChineseSolarTime = times.ChineseSolar;
+        this.ChineseLunarTime = times.ChineseLunar;
 
         this.Numbers = numbers;
         this.Guas = guas;
