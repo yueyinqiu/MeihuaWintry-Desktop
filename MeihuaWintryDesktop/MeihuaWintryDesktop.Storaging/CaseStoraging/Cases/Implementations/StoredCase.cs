@@ -25,7 +25,7 @@ internal sealed class StoredCase : IStoredCaseWithId
         set
         {
             if (value is null)
-                throw new ArgumentNullException(nameof(value), "CaseId 不可以为 null 。");
+                throw new ArgumentNullException(nameof(value), $"{nameof(this.CaseId)}  不可以为 null 。");
             this.caseId = value;
         }
     }
@@ -56,12 +56,8 @@ internal sealed class StoredCase : IStoredCaseWithId
         set => this.ownerDescription = value ?? "";
     }
 
-    public required StoredGregorianTime? GregorianTime { get; set; }
-    IStoredGregorianTime IStoredCase.GregorianTime => this.GregorianTime ?? StoredGregorianTime.Empty;
-    public required StoredChineseSolarTime? ChineseSolarTime { get; set; }
-    IStoredChineseSolarTime IStoredCase.ChineseSolarTime => this.ChineseSolarTime ?? StoredChineseSolarTime.Empty;
-    public required StoredChineseLunarTime? ChineseLunarTime { get; set; }
-    IStoredChineseLunarTime IStoredCase.ChineseLunarTime => this.ChineseLunarTime ?? StoredChineseLunarTime.Empty;
+    public required DateTime DivinationTime { get; set; }
+    DateTime? IStoredCase.DivinationTime => this.DivinationTime == default ? null : this.DivinationTime;
 
     public required StoredNumber?[]? Numbers { get; set; }
     IEnumerable<IStoredNumber> IStoredCase.Numbers => SelectNotNull(this.Numbers);
@@ -83,9 +79,7 @@ internal sealed class StoredCase : IStoredCaseWithId
     {
         return new StoredCase() {
             CaseId = ObjectId.Empty,
-            ChineseLunarTime = StoredChineseLunarTime.FromInterfaceType(c.ChineseLunarTime),
-            ChineseSolarTime = StoredChineseSolarTime.FromInterfaceType(c.ChineseSolarTime),
-            GregorianTime = StoredGregorianTime.FromInterfaceType(c.GregorianTime),
+            DivinationTime = c.DivinationTime ?? default,
             Guas = c.Guas.Select(StoredGua.FromInterfaceType).ToArray(),
             LastEdit = lastEdit ?? DateTime.Now,
             Notes = c.Notes,

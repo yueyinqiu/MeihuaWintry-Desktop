@@ -1,28 +1,29 @@
 ﻿using LiteDB;
 
 namespace MeihuaWintryDesktop.Storaging.CaseStoraging.Diviners.Implementations;
-public sealed class DivinerManager : IDivinerManager
+internal sealed class DivinerManager : IDivinerManager
 {
-    private readonly BsonMapper bsonMapper;
-    private readonly ILiteCollection<StoredDivinerScript> scriptCollection;
+    private readonly ILiteCollection<StoredDiviner> scriptCollection;
     internal DivinerManager(LiteDatabase database)
     {
-        this.bsonMapper = database.Mapper;
-        this.scriptCollection = database.GetCollection<StoredDivinerScript>(CollectionNames.DivinerScript);
+        this.scriptCollection = database.GetCollection<StoredDiviner>(CollectionNames.Diviners);
     }
 
-    public string GetScript(DivinerScriptCategory category)
+    public IStoredDiviner Diviner
     {
-        var id = this.bsonMapper.Serialize(category);
-        var result = this.scriptCollection.FindById(id);
-        return result?.Codes ?? "";
-    }
-
-    public void SetScript(DivinerScriptCategory category, string script)
-    {
-        _ = this.scriptCollection.Upsert(new StoredDivinerScript() {
-            ScriptId = category,
-            Codes = script
-        });
+        get
+        {
+            var result = this.scriptCollection.FindById(StoredDiviner.PossibleId);
+            return result ?? new StoredDiviner() {
+                PreScript = "",
+                DefaultScript = "",
+                PostScript = "",
+            };
+        }
+        set
+        {
+            var d = StoredDiviner.FromInterfaceType(value);
+            this.scriptCollection.Upsert(d);
+        }
     }
 }

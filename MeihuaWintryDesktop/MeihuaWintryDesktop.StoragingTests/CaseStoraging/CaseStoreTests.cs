@@ -59,26 +59,9 @@ public class CaseStoreTests
     public void CaseTest()
     {
         using var store = NewStore();
-        var time = new AnyTime() {
-            Day = null,
-            Month = -1213,
-            TimeGan = Tiangan.Gui,
-            TimeZhi = null,
-            YearGan = null,
-            YearZhi = Dizhi.Si,
-            DayGan = Tiangan.Ren,
-            DayZhi = null,
-            MonthGan = null,
-            MonthZhi = Dizhi.Chou,
-            Hour = 1232,
-            Minute = null,
-            Year = 0
-        };
-        var cIn = new Case() {
+        var cIn = new StoredCase() {
             CaseId = ObjectId.NewObjectId(),
-            ChineseLunarTime = time,
-            ChineseSolarTime = time,
-            GregorianTime = time,
+            DivinationTime = null,
             Guas = new[] {
                 new StoredGua() {
                     Gua = Gua.Parse("011"),
@@ -115,7 +98,7 @@ public class CaseStoreTests
 
         Assert.AreNotEqual(cIn.CaseId, cOut.CaseId);
         Assert.AreEqual(cIn.Notes, cOut.Notes);
-        Assert.AreEqual(cIn.ChineseLunarTime.Day, cOut.ChineseLunarTime.Day);
+        Assert.AreEqual(cOut.DivinationTime, cOut.DivinationTime);
 
         Assert.AreNotEqual(cIn.Guas.ElementAt(1).Gua, cOut.Guas.ElementAt(1).Gua);
         Assert.AreEqual(Gua.Parse(""), cOut.Guas.ElementAt(1).Gua);
@@ -174,12 +157,21 @@ public class CaseStoreTests
     public void DivinerTest()
     {
         using var store = NewStore();
+        Assert.AreEqual("", store.Diviners.Diviner.DefaultScript);
 
-        store.Diviners.SetScript(Diviners.DivinerScriptCategory.DefaultScript, "ABC");
-        Assert.AreEqual("ABC", store.Diviners.GetScript(Diviners.DivinerScriptCategory.DefaultScript));
-        Assert.AreEqual("", store.Diviners.GetScript(Diviners.DivinerScriptCategory.PreScript));
+        store.Diviners.Diviner = new StoredDiviner() {
+            DefaultScript = "ABC"
+        };
+        Assert.AreEqual("ABC", store.Diviners.Diviner.DefaultScript);
+        Assert.AreEqual("", store.Diviners.Diviner.PreScript);
 
-        store.Diviners.SetScript(Diviners.DivinerScriptCategory.DefaultScript, null);
-        Assert.AreEqual("", store.Diviners.GetScript(Diviners.DivinerScriptCategory.DefaultScript));
+        store.Diviners.Diviner = new StoredDiviner() {
+            DefaultScript = null,
+            PostScript = "QWE",
+            PreScript = "PQR"
+        };
+        Assert.AreEqual("", store.Diviners.Diviner.DefaultScript);
+        Assert.AreEqual("PQR", store.Diviners.Diviner.PreScript);
+        Assert.AreEqual("QWE", store.Diviners.Diviner.PostScript);
     }
 }

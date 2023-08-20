@@ -7,9 +7,7 @@ public interface IStoredCase
     string Owner { get; }
     string OwnerDescription { get; }
 
-    IStoredGregorianTime GregorianTime { get; }
-    IStoredChineseSolarTime ChineseSolarTime { get; }
-    IStoredChineseLunarTime ChineseLunarTime { get; }
+    DateTime? DivinationTime { get; }
 
     IEnumerable<IStoredNumber> Numbers { get; }
     IEnumerable<IStoredGua> Guas { get; }

@@ -1,6 +1,6 @@
 ﻿using MeihuaWintryDesktop.Storaging.GlobalConfiguring.AccessHistorys;
 
-namespace MeihuaWintryDesktop.ViewModelling.Sidebars;
+namespace MeihuaWintryDesktop.ViewModelling.Sidebars.History;
 public sealed class AccessHistory : IStoredAccessHistory
 {
     internal AccessHistory(IStoredAccessHistory history)

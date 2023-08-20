@@ -20,12 +20,10 @@ internal sealed partial class CaseCreator
             caseCreationExtraInformation: new(this.store, script),
             caseCreationResult: new(title, owner, "", time, new(), new(), "", new()));
         var runner = new ScriptRunner<CaseCreationGlobals>(globals);
-        await runner.ContinueAsync(
-            this.store.Diviners.GetScript(DivinerScriptCategory.PreScript), cancellationToken);
-        await runner.ContinueAsync(
-            script, cancellationToken);
-        await runner.ContinueAsync(
-            this.store.Diviners.GetScript(DivinerScriptCategory.PostScript), cancellationToken);
+        var diviner = this.store.Diviners.Diviner;
+        await runner.ContinueAsync(diviner.PreScript, cancellationToken);
+        await runner.ContinueAsync(script, cancellationToken);
+        await runner.ContinueAsync(diviner.PostScript, cancellationToken);
         return globals.CaseCreationResult;
     }
 
