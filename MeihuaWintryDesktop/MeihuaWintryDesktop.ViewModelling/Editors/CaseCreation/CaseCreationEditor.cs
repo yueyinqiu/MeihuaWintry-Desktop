@@ -17,7 +17,7 @@ public sealed partial class CaseCreationEditor : ObservableObject, IEditorViewMo
     {
         this.popupStack = popupStack;
         this.store = store;
-        this.times = TheThreeTimes.From(DateTime.Now);
+        this.time = DateTime.Now;
     }
 
     [ObservableProperty]
@@ -26,8 +26,8 @@ public sealed partial class CaseCreationEditor : ObservableObject, IEditorViewMo
     [ObservableProperty]
     private string owner = "";
 
-    private readonly TheThreeTimes times;
-    public string Time => this.times.ToString();
+    [ObservableProperty]
+    private DateTime? time = null;
 
     [ObservableProperty]
     private string script = "";
@@ -51,7 +51,7 @@ public sealed partial class CaseCreationEditor : ObservableObject, IEditorViewMo
         try
         {
             var c = await creator.CreateAndInsertAsync(
-                this.Title, this.Owner, this.times, this.Script, tokenSource.Token);
+                this.Title, this.Owner, this.Time, this.Script, tokenSource.Token);
         }
         catch (Exception ex)
         {

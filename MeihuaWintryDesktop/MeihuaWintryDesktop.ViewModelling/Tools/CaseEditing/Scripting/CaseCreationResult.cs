@@ -6,7 +6,7 @@ internal sealed class CaseCreationResult : IStoredCase
 {
     public CaseCreationResult(
         string title, string owner, string ownerDescription,
-        TheThreeTimes times, List<NumberOfCase?> numbers, List<GuaOfCase?> guas, string notes,
+        DateTime? divinationTime, List<NumberOfCase?> numbers, List<GuaOfCase?> guas, string notes,
         List<string?> tags)
     {
         this.Title = title;
@@ -14,9 +14,7 @@ internal sealed class CaseCreationResult : IStoredCase
         this.OwnerDescription = ownerDescription;
         this.Notes = notes;
 
-        this.GregorianTime = times.Gregorian;
-        this.ChineseSolarTime = times.ChineseSolar;
-        this.ChineseLunarTime = times.ChineseLunar;
+        this.DivinationTime = divinationTime;
 
         this.Numbers = numbers;
         this.Guas = guas;
@@ -33,13 +31,7 @@ internal sealed class CaseCreationResult : IStoredCase
     string IStoredCase.OwnerDescription => this.OwnerDescription ?? "";
     string IStoredCase.Notes => this.Notes ?? "";
 
-    public GregorianTime GregorianTime { get; }
-    public ChineseSolarTime ChineseSolarTime { get; }
-    public ChineseLunarTime ChineseLunarTime { get; }
-
-    IStoredGregorianTime IStoredCase.GregorianTime => this.GregorianTime;
-    IStoredChineseSolarTime IStoredCase.ChineseSolarTime => this.ChineseSolarTime;
-    IStoredChineseLunarTime IStoredCase.ChineseLunarTime => this.ChineseLunarTime;
+    public DateTime? DivinationTime { get; set; }
 
     public List<NumberOfCase?> Numbers { get; }
     public List<GuaOfCase?> Guas { get; }

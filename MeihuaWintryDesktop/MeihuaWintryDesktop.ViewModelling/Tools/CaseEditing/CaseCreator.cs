@@ -13,7 +13,7 @@ internal sealed partial class CaseCreator
     }
 
     public async ValueTask<IStoredCase> CreateAsync(string title,
-        string owner, TheThreeTimes time, string script,
+        string owner, DateTime? time, string script,
         CancellationToken cancellationToken = default)
     {
         var globals = new CaseCreationGlobals(
@@ -28,7 +28,7 @@ internal sealed partial class CaseCreator
     }
 
     public async ValueTask<IStoredCaseWithId> CreateAndInsertAsync(string title,
-        string owner, TheThreeTimes time, string script,
+        string owner, DateTime? time, string script,
         CancellationToken cancellationToken = default)
     {
         var c = await this.CreateAndInsertAsync(title, owner, time, script, cancellationToken);
