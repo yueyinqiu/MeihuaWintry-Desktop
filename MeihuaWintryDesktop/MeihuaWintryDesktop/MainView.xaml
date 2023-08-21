@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="MeihuaWintryDesktop.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MeihuaWintryDesktop"
+             xmlns:popups="clr-namespace:MeihuaWintryDesktop.Popups"
+             xmlns:editors="clr-namespace:MeihuaWintryDesktop.Editors"
+             xmlns:sidebars="clr-namespace:MeihuaWintryDesktop.Sidebars"
+             xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:vmpopup="clr-namespace:MeihuaWintryDesktop.ViewModelling.Popups;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:vmeditor="clr-namespace:MeihuaWintryDesktop.ViewModelling.Editors;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:vmsidebar="clr-namespace:MeihuaWintryDesktop.ViewModelling.Sidebars;assembly=MeihuaWintryDesktop.ViewModelling"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!-- 弹出框 -->
+        <ContentControl Content="{Binding Popup}" Panel.ZIndex="1">
+            <!--
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vmpopup:MessagePopup}">
+                    <popups:MessagePopupView></popups:MessagePopupView>
+                </DataTemplate>
+            </ContentControl.Resources>
+            -->
+        </ContentControl>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <!-- 侧边栏（搜索区） -->
+            <ContentControl Grid.Column="0" 
+                            Content="{Binding Sidebar}">
+                <!--
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vmsidebar:HistorySidebar}">
+                        <sidebars:HistorySidebarView></sidebars:HistorySidebarView>
+                    </DataTemplate>
+                </ContentControl.Resources>
+                -->
+            </ContentControl>
+
+            <!-- 编辑区 -->
+            <ContentControl Grid.Column="1" 
+                            Content="{Binding Editor}">
+                <!--
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vmeditor:WelcomeEditor}">
+                        <editors:WelcomeEditorView></editors:WelcomeEditorView>
+                    </DataTemplate>
+                </ContentControl.Resources>
+                -->
+            </ContentControl>
+        </Grid>
+    </Grid>
+</UserControl>

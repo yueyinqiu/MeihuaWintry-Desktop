@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="MeihuaWintryDesktop.Popups.MessagePopupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling.Popups;assembly=MeihuaWintryDesktop.ViewModelling"
+             xmlns:converters="clr-namespace:MeihuaWintryDesktop.Converters"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:MessagePopup}"
+             d:DesignHeight="300" d:DesignWidth="600">
+    <UserControl.Resources>
+        <converters:ObjectIsNullToVisibilityConverter x:Key="ObjectIsNullToVisibilityConverter">
+        </converters:ObjectIsNullToVisibilityConverter>
+    </UserControl.Resources>
+    
+    <Grid Background="#88000000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="1" Grid.Column="1" Background="White">
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="{Binding Title}"
+                       d:Content="这是一个不咋长也不咋短的标题"
+					   VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="1"
+						 Text="{Binding Message, Mode=OneWay}"
+                         d:Text="在这里得说点啥，但是说点啥好呢。反正总不能比标题短是吧？大概这么长？就这样吧。"
+						 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+						 IsReadOnly="False"
+						 AcceptsReturn="True" TextWrapping="WrapWithOverflow"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1"
+							Content="{Binding YesText}"
+							d:Content="确定"
+							VerticalAlignment="Center" HorizontalAlignment="Center"
+							Command="{Binding ChooseYesCommand}"/>
+                    <Button Grid.Column="2"
+                            Visibility="{Binding NoText, Converter={StaticResource ObjectIsNullToVisibilityConverter}}"
+							Content="{Binding NoText}"
+							d:Content="取消"
+							VerticalAlignment="Center" HorizontalAlignment="Center"
+							Command="{Binding ChooseNoCommand}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

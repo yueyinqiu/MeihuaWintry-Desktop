@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="MeihuaWintryDesktop.Editors.WelcomeEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:MeihuaWintryDesktop.ViewModelling.Editors.Welcome;assembly=MeihuaWintryDesktop.ViewModelling"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:WelcomeEditor}"
+             d:DesignHeight="450" d:DesignWidth="600">
+
+    <StackPanel>
+        <TextBlock d:Text="欢迎使用冬日梅花" 
+                   Text="{Binding Title}"></TextBlock>
+        <TextBlock d:Text="梅花易数起卦记卦网站"
+                   Text="{Binding Description}"></TextBlock>
+    </StackPanel>
+</UserControl>

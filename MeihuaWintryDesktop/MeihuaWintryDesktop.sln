@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeihuaWintryDesktop.ViewMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeihuaWintryDesktop.StoragingTests", "MeihuaWintryDesktop.StoragingTests\MeihuaWintryDesktop.StoragingTests.csproj", "{6A03717A-1859-496F-93E1-81EA15EC6F04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeihuaWintryDesktop", "MeihuaWintryDesktop\MeihuaWintryDesktop.csproj", "{BA6A41D0-B83D-491B-836E-DCFB3B361010}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeihuaWintryDesktop", "MeihuaWintryDesktop\MeihuaWintryDesktop.csproj", "{6BB9A58C-01AB-41C1-8A46-F91D5BE92990}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{6A03717A-1859-496F-93E1-81EA15EC6F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A03717A-1859-496F-93E1-81EA15EC6F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A03717A-1859-496F-93E1-81EA15EC6F04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA6A41D0-B83D-491B-836E-DCFB3B361010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA6A41D0-B83D-491B-836E-DCFB3B361010}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA6A41D0-B83D-491B-836E-DCFB3B361010}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA6A41D0-B83D-491B-836E-DCFB3B361010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BB9A58C-01AB-41C1-8A46-F91D5BE92990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BB9A58C-01AB-41C1-8A46-F91D5BE92990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BB9A58C-01AB-41C1-8A46-F91D5BE92990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BB9A58C-01AB-41C1-8A46-F91D5BE92990}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
