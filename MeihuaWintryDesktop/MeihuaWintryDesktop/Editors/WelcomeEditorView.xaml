@@ -10,8 +10,6 @@
 
     <StackPanel>
         <TextBlock d:Text="欢迎使用冬日梅花" 
-                   Text="{Binding Title}"></TextBlock>
-        <TextBlock d:Text="梅花易数起卦记卦网站"
-                   Text="{Binding Description}"></TextBlock>
+                   Text="{Binding Messages}"></TextBlock>
     </StackPanel>
 </UserControl>
