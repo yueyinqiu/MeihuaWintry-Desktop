@@ -7,31 +7,34 @@ namespace MeihuaWintryDesktop.ViewModelling.Tools.CaseEditing;
 internal sealed partial class CaseCreator
 {
     private readonly CaseStore store;
+    private readonly IStoredDiviner diviner;
     public CaseCreator(CaseStore store)
     {
         this.store = store;
+        this.diviner = store.Diviners.Diviner;
     }
+
+    public string DefaultScript => diviner.DefaultScript;
 
     public async ValueTask<IStoredCase> CreateAsync(string title,
         string owner, DateTime? time, string script,
         CancellationToken cancellationToken = default)
     {
+        var ownerDescription = store.Cases.CreateQuery()
+            .FilterByOwner(owner)
+            .OrderByLastEdit(true)
+            .Limit(1)
+            .Query()
+            .Select(x => x.OwnerDescription)
+            .FirstOrDefault(defaultValue: "");
+
         var globals = new CaseCreationGlobals(
             caseCreationExtraInformation: new(this.store, script),
-            caseCreationResult: new(title, owner, "", time, new(), new(), "", new()));
+            caseCreationResult: new(title, owner, ownerDescription, time, new(), new(), "", new()));
         var runner = new ScriptRunner<CaseCreationGlobals>(globals);
-        var diviner = this.store.Diviners.Diviner;
-        await runner.ContinueAsync(diviner.PreScript, cancellationToken);
+        await runner.ContinueAsync(this.diviner.PreScript, cancellationToken);
         await runner.ContinueAsync(script, cancellationToken);
-        await runner.ContinueAsync(diviner.PostScript, cancellationToken);
+        await runner.ContinueAsync(this.diviner.PostScript, cancellationToken);
         return globals.CaseCreationResult;
-    }
-
-    public async ValueTask<IStoredCaseWithId> CreateAndInsertAsync(string title,
-        string owner, DateTime? time, string script,
-        CancellationToken cancellationToken = default)
-    {
-        var c = await this.CreateAndInsertAsync(title, owner, time, script, cancellationToken);
-        return this.store.Cases.InsertCase(c);
     }
 }

@@ -27,7 +27,7 @@ public sealed partial class StoreSidebar : SidebarBase, ISidebarViewModel
         this.CurrentPageIndex = 1;
     }
 
-    private CaseSearchResult searchedCases;
+    private readonly CaseSearchResult searchedCases;
 
     [ObservableProperty]
     private IEnumerable<SearchedCase> listingCases;

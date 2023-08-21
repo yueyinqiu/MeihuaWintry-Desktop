@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MeihuaWintryDesktop.Storaging.CaseStoraging;
+using MeihuaWintryDesktop.Storaging.CaseStoraging.Cases;
 using MeihuaWintryDesktop.ViewModelling.Popups.Message;
 using MeihuaWintryDesktop.ViewModelling.Tools.CaseEditing;
 using MeihuaWintryDesktop.ViewModelling.Tools.PoppingUp;
@@ -10,27 +11,40 @@ namespace MeihuaWintryDesktop.ViewModelling.Editors.CaseCreation;
 public sealed partial class CaseCreationEditor : ObservableObject, IEditorViewModel
 {
     private readonly CaseStore store;
-
     private readonly PopupStack popupStack;
+    private readonly CaseCreator caseCreator;
 
     internal CaseCreationEditor(PopupStack popupStack, CaseStore store)
     {
         this.popupStack = popupStack;
         this.store = store;
-        this.time = DateTime.Now;
+        this.caseCreator = new CaseCreator(this.store);
+
+        this.Time = DateTime.Now;
+        this.Title = $"新占例 {this.Time:yyyy/MM/dd HH:mm}";
+        this.Owner = "";
+        this.OwnerSelections = store.Cases.CreateQuery()
+            .OrderByLastEdit(true)
+            .Limit(100)
+            .Query()
+            .Select(x => x.Owner)
+            .Distinct();
+        this.Script = this.caseCreator.DefaultScript;
     }
 
     [ObservableProperty]
-    private string title = "";
+    private string title;
 
     [ObservableProperty]
-    private string owner = "";
+    private string owner;
+
+    public IEnumerable<string> OwnerSelections { get; }
 
     [ObservableProperty]
-    private DateTime? time = null;
+    private DateTime? time;
 
     [ObservableProperty]
-    private string script = "";
+    private string script;
 
     [RelayCommand]
     private async Task SubmitAsync()
@@ -47,16 +61,15 @@ public sealed partial class CaseCreationEditor : ObservableObject, IEditorViewMo
             tokenSource.Cancel();
         };
 
-        var creator = new CaseCreator(this.store);
+        IStoredCase createdCase;
         try
         {
-            var c = await creator.CreateAndInsertAsync(
+            createdCase = await this.caseCreator.CreateAsync(
                 this.Title, this.Owner, this.Time, this.Script, tokenSource.Token);
         }
         catch (Exception ex)
         {
-            var popupMessage = $"在创建占例时遇到了异常。" +
-                $"{Environment.NewLine}这可能是因为起卦脚本出现异常，或者仓库文件不正常导致的。" +
+            var popupMessage = $"占例创建失败。" +
                 $"{Environment.NewLine}具体异常信息：" +
                 $"{Environment.NewLine}{ex}";
             this.popupStack.Popup(new MessagePopup(this.popupStack) {
@@ -67,5 +80,6 @@ public sealed partial class CaseCreationEditor : ObservableObject, IEditorViewMo
             });
             return;
         }
+        var storedCase = this.store.Cases.InsertCase(createdCase);
     }
 }
