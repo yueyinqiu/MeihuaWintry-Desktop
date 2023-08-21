@@ -49,6 +49,7 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="1"
+                            Visibility="{Binding YesText, Converter={StaticResource ObjectIsNullToVisibilityConverter}}"
 							Content="{Binding YesText}"
 							d:Content="确定"
 							VerticalAlignment="Center" HorizontalAlignment="Center"
